@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "920459617107",
+    "firebase_url": "https://hunger-warrior.firebaseio.com",
+    "project_id": "hunger-warrior",
+    "storage_bucket": "hunger-warrior.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:920459617107:android:03955bd65f2be0060f37a6",
+        "android_client_info": {
+          "package_name": "com.dakiiii.hungerwarrior"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "920459617107-t8nollput7lsqqki66jehm7no43df1gq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dakiiii.hungerwarrior",
+            "certificate_hash": "57c45e19ca57da270af77b1929d078066da18605"
+          }
+        },
+        {
+          "client_id": "920459617107-0tksl36vljl2776fsvsu3elsjbuddj0u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_Lq3zL9d6Bw_gCImI6UJYpSjAdot6gdY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "920459617107-0tksl36vljl2776fsvsu3elsjbuddj0u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
