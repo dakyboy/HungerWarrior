@@ -40,7 +40,7 @@ public class AllFoodsAdapter extends RecyclerView.Adapter<AllFoodsAdapter.AllFoo
         Food food = eFoods.get(position);
 
         holder.eTextViewFoodName.setText(food.getFoodName());
-        holder.eTextViewFoodDescription.setText(food.getFoodDescription());
+//        holder.eTextViewFoodDescription.setText(food.getFoodDescription());
         holder.eTextViewFoodPrice.setText(Integer.toString(food.getFoodPrice()));
 
     }
@@ -54,7 +54,7 @@ public class AllFoodsAdapter extends RecyclerView.Adapter<AllFoodsAdapter.AllFoo
     public class AllFoodsViewHolder extends RecyclerView.ViewHolder {
 
         TextView eTextViewFoodName;
-        TextView eTextViewFoodDescription;
+//        TextView eTextViewFoodDescription;
         TextView eTextViewFoodPrice;
         ImageView eImageViewFoodImage;
 
@@ -62,7 +62,6 @@ public class AllFoodsAdapter extends RecyclerView.Adapter<AllFoodsAdapter.AllFoo
             super(itemView);
 
             eTextViewFoodName = itemView.findViewById(R.id.textView_FoodName);
-            eTextViewFoodDescription = itemView.findViewById(R.id.textViewFoodDescription);
             eTextViewFoodPrice = itemView.findViewById(R.id.textView_FoodPrice);
             eImageViewFoodImage = itemView.findViewById(R.id.imageViewFood);
         }

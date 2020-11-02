@@ -6,60 +6,79 @@
     android:layout_height="wrap_content"
     android:background="#FFFFFF">
 
-    <ImageView
-        android:id="@+id/imageViewFood"
-        android:layout_width="wrap_content"
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
-        android:padding="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars"
-        android:contentDescription="@string/image_of_food" />
-
-    <Button
-        android:id="@+id/button_AddOrder"
-        android:layout_width="59dp"
-        android:layout_height="38dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="8dp"
-        android:background="@android:drawable/ic_menu_add"
-        app:backgroundTint="@color/purple_500"
-        app:layout_constraintBottom_toTopOf="@+id/textViewFoodDescription"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView_FoodName"
-        tools:text="Button" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/textView_FoodName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:hint="@string/food_name"
-        app:layout_constraintStart_toEndOf="@+id/imageViewFood"
-        app:layout_constraintTop_toTopOf="@+id/imageViewFood" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/textViewFoodDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/food_description"
-        app:layout_constraintBottom_toBottomOf="@+id/imageViewFood"
-        app:layout_constraintStart_toStartOf="@+id/textView_FoodName"
-        app:layout_constraintTop_toBottomOf="@+id/textView_FoodName" />
+            <ImageView
+                android:id="@+id/imageViewFood"
+                android:layout_width="100dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:contentDescription="@string/image_of_food"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/avatars" />
 
-    <TextView
-        android:id="@+id/textView_FoodPrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/food_price"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewFoodDescription"
-        app:layout_constraintEnd_toEndOf="@+id/button_AddOrder"
-        app:layout_constraintStart_toStartOf="@+id/button_AddOrder"
-        app:layout_constraintTop_toTopOf="@+id/textViewFoodDescription" />
+            <Button
+                android:id="@+id/button_AddOrder"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@android:drawable/ic_menu_add"
+                app:backgroundTint="@color/purple_500"
+                app:layout_constraintDimensionRatio="w,1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/imageViewFood"
+                tools:text="Button" />
+
+            <TextView
+                android:id="@+id/textView_FoodName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/food_name"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toTopOf="@+id/imageViewFood" />
+
+            <TextView
+                android:id="@+id/textView_FoodPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="@string/food_price"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toBottomOf="@+id/textView_FoodName" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="120dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="325dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

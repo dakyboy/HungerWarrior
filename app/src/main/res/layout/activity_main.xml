@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:text="@string/foods"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,14 +22,14 @@
         android:id="@+id/recyclerView_AllFoods"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textViewFoodsTitle"
-        app:layout_constraintTop_toBottomOf="@+id/textViewFoodsTitle"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName"
         tools:listitem="@layout/all_foods_row_item" />
 
     <EditText
@@ -38,13 +38,15 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:ems="10"
         android:hint="@string/search_foods"
         android:inputType="textPersonName"
         android:textColor="#6200EA"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewFoodsTitle"
-        app:layout_constraintEnd_toEndOf="@+id/recyclerView_AllFoods"
-        app:layout_constraintStart_toEndOf="@+id/textViewFoodsTitle"
-        app:layout_constraintTop_toTopOf="@+id/textViewFoodsTitle" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewFoodsTitle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

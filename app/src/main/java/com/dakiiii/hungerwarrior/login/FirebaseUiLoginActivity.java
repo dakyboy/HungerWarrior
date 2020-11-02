@@ -40,7 +40,7 @@ public class FirebaseUiLoginActivity extends AppCompatActivity {
         super.onStart();
         FirebaseUser user = eFirebaseAuth.getCurrentUser();
         if (user != null) {
-            Toast.makeText(this, "user is already logged in", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "user is already logged in", Toast.LENGTH_SHORT).show();
             startActivity(INTENT_MAIN_ACTIVITY);
             Log.i("Sign in", "User already logged in");
         } else {
