@@ -1,12 +1,12 @@
 package com.dakiiii.hungerwarrior.login;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.dakiiii.hungerwarrior.MainActivity;
 import com.dakiiii.hungerwarrior.R;
@@ -45,7 +45,6 @@ public class FirebaseUiLoginActivity extends AppCompatActivity {
             Log.i("Sign in", "User already logged in");
         } else {
             List<AuthUI.IdpConfig> providers = Arrays.asList(
-                    new AuthUI.IdpConfig.EmailBuilder().build(),
                     new AuthUI.IdpConfig.FacebookBuilder().build(),
                     new AuthUI.IdpConfig.GoogleBuilder().build()
             );
