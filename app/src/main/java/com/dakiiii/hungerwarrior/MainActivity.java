@@ -1,5 +1,6 @@
 package com.dakiiii.hungerwarrior;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -14,18 +15,21 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.dakiiii.hungerwarrior.adapter.AllFoodsAdapter;
 import com.dakiiii.hungerwarrior.model.Food;
+import com.dakiiii.hungerwarrior.networking.WebService;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    
+
     private RecyclerView eRecyclerView;
     private AllFoodsAdapter eAllFoodsAdapter;
     private List<Food> eFoodList = new ArrayList<>();
-    private String foodsUrl = "http://hungerwarrior.herokuapp.com/api/foods";
+    private String foodsUrl = "https://hungerwarrior.herokuapp.com/api/foods";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
         addFoods();
         eAllFoodsAdapter = new AllFoodsAdapter(this, eFoodList);
         eRecyclerView.setAdapter(eAllFoodsAdapter);
+
+//        List<Food> foods = WebService.
 
 
     }
@@ -62,35 +68,46 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getFoods() {
+        eFoodList.clear();
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Loading");
+        progressDialog.show();
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET
                 , foodsUrl, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                Toast.makeText(MainActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
+                try {
+                    for (int i = 0; i < response.length(); i++) {
+                        JSONObject jsonObject = response.getJSONObject(i);
+                        int foodId = jsonObject.getInt("id");
+                        int food_price = jsonObject.getInt("food_price");
+                        String food_name = jsonObject.getString("food_name");
+                        String food_desc = jsonObject.getString("food_desc");
+
+                        Food food = new Food(food_name, food_price);
+                        food.setFoodId(foodId);
+                        food.setFoodDescription(food_desc);
+
+                        eFoodList.add(food);
+                    }
+                    eAllFoodsAdapter.setFoods(eFoodList);
+                    progressDialog.dismiss();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    progressDialog.dismiss();
+
+                }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(MainActivity.this, "Fail", Toast.LENGTH_SHORT).show();
                 Log.e(MainActivity.class.toString(), error.toString());
+                progressDialog.dismiss();
             }
         });
-
-        /*JsonObjectRequest foodsJsonObjectRequest = new JsonObjectRequest(Request.Method.GET
-                , foodsUrl, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                Toast.makeText(MainActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(MainActivity.this, "Network fail", Toast.LENGTH_SHORT).show();
-                Log.e(this.toString(), error.toString());
-            }
-        });*/
-
-//        VolleySingleton.getInstance(this).addToRequestQueue(foodsJsonObjectRequest);
         VolleySingleton.getInstance(this).addToRequestQueue(jsonArrayRequest);
     }
 }

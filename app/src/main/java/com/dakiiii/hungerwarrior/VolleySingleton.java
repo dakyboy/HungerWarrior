@@ -1,3 +1,4 @@
+
 package com.dakiiii.hungerwarrior;
 
 import android.content.Context;

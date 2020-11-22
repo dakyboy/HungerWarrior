@@ -10,4 +10,5 @@
     <string name="image_of_food">Image of food</string>
     <string name="search_foods">Search Foods...</string>
     <string name="foods">Foods</string>
+    <string name="order">order</string>
 </resources>

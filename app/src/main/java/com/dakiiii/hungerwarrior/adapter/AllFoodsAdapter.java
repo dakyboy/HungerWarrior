@@ -1,6 +1,8 @@
 package com.dakiiii.hungerwarrior.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.dakiiii.hungerwarrior.FoodActivity;
 import com.dakiiii.hungerwarrior.R;
 import com.dakiiii.hungerwarrior.model.Food;
 
@@ -47,9 +50,17 @@ public class AllFoodsAdapter extends RecyclerView.Adapter<AllFoodsAdapter.AllFoo
 
     @Override
     public int getItemCount() {
-        return eFoods.size();
+
+        if (eFoods!= null) {
+            return eFoods.size();
+        }
+        return 0;
     }
 
+    public void setFoods(List<Food> foods) {
+        eFoods = foods;
+        notifyDataSetChanged();
+    }
 
     public class AllFoodsViewHolder extends RecyclerView.ViewHolder {
 
@@ -64,6 +75,22 @@ public class AllFoodsAdapter extends RecyclerView.Adapter<AllFoodsAdapter.AllFoo
             eTextViewFoodName = itemView.findViewById(R.id.textView_FoodName);
             eTextViewFoodPrice = itemView.findViewById(R.id.textView_FoodPrice);
             eImageViewFoodImage = itemView.findViewById(R.id.imageViewFood);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Context context = itemView.getContext();
+                    Intent intent  = new Intent(context, FoodActivity.class);
+                    Food food = eFoods.get(getAdapterPosition());
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString("FOOD_NAME", food.getFoodName());
+                    bundle.putInt("FOOD_PRICE", food.getFoodPrice());
+                    intent.putExtra("FOOD_DETAILS", bundle);
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 }

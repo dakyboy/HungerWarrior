@@ -1,6 +1,16 @@
 package com.dakiiii.hungerwarrior.model;
 
 public class Food {
+    private int foodId;
+
+    public int getFoodId() {
+        return foodId;
+    }
+
+    public void setFoodId(int foodId) {
+        this.foodId = foodId;
+    }
+
     private String foodName;
     private String foodDescription;
     private int foodPrice;
