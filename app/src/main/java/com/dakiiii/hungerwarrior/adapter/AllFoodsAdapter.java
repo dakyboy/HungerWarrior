@@ -85,8 +85,10 @@ public class AllFoodsAdapter extends RecyclerView.Adapter<AllFoodsAdapter.AllFoo
                     Food food = eFoods.get(getAdapterPosition());
 
                     Bundle bundle = new Bundle();
+                    bundle.putInt("FOOD_ID", food.getFoodId());
                     bundle.putString("FOOD_NAME", food.getFoodName());
                     bundle.putInt("FOOD_PRICE", food.getFoodPrice());
+                    bundle.putString("FOOD_VENDOR", food.getFoodVendor());
                     intent.putExtra("FOOD_DETAILS", bundle);
                     context.startActivity(intent);
                 }

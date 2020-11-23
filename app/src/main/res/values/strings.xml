@@ -11,4 +11,6 @@
     <string name="search_foods">Search Foods...</string>
     <string name="foods">Foods</string>
     <string name="order">order</string>
+    <string name="add_to_cart">Add to Cart</string>
+    <string name="quantity">Quantity</string>
 </resources>

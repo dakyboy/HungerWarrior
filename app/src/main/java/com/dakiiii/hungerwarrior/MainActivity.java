@@ -42,14 +42,13 @@ public class MainActivity extends AppCompatActivity {
         eRecyclerView.setAdapter(eAllFoodsAdapter);
 
 //        List<Food> foods = WebService.
-
+        getFoods();
 
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        getFoods();
     }
 
     public void addFoods() {
