@@ -2,17 +2,20 @@ package com.dakiiii.hungerwarrior.adapter;
 
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.dakiiii.hungerwarrior.R;
 import com.dakiiii.hungerwarrior.model.Food;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
-    private List<Food> eFoods = new ArrayList<>();
+    private final List<Food> eFoods = new ArrayList<>();
 
     @NonNull
     @Override
@@ -22,6 +25,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
+//        Food food
 
     }
 
@@ -35,9 +39,18 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     }
 
     public class CartViewHolder extends RecyclerView.ViewHolder {
+        TextView eCartFoodName;
+        TextView eCartFoodCost;
+        Button eCartDeleteButton;
+        Button eCartEditButton;
 
         public CartViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            eCartFoodName = itemView.findViewById(R.id.textView_Cart_FoodName);
+            eCartFoodCost = itemView.findViewById(R.id.textView_Cart_FoodCost);
+            eCartDeleteButton = itemView.findViewById(R.id.button_Cart_Delete);
+            eCartEditButton = itemView.findViewById(R.id.button_Cart_Edit);
         }
     }
 }

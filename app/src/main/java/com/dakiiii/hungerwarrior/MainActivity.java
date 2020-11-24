@@ -1,6 +1,8 @@
 package com.dakiiii.hungerwarrior;
 
 import android.app.ProgressDialog;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -15,7 +17,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.dakiiii.hungerwarrior.adapter.AllFoodsAdapter;
 import com.dakiiii.hungerwarrior.model.Food;
-import com.dakiiii.hungerwarrior.networking.WebService;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,8 +29,9 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView eRecyclerView;
     private AllFoodsAdapter eAllFoodsAdapter;
-    private List<Food> eFoodList = new ArrayList<>();
-    private String foodsUrl = "https://hungerwarrior.herokuapp.com/api/foods";
+    private final List<Food> eFoodList = new ArrayList<>();
+    private final String foodsUrl = "https://hungerwarrior.herokuapp.com/api/foods";
+    private ConnectivityManager eConnectivityManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,15 +42,30 @@ public class MainActivity extends AppCompatActivity {
         addFoods();
         eAllFoodsAdapter = new AllFoodsAdapter(this, eFoodList);
         eRecyclerView.setAdapter(eAllFoodsAdapter);
+        eConnectivityManager = (ConnectivityManager) this.getSystemService(CONNECTIVITY_SERVICE);
 
 //        List<Food> foods = WebService.
-        getFoods();
+
 
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        NetworkInfo networkInfo = eConnectivityManager.getActiveNetworkInfo();
+        boolean isConnected = networkInfo != null && networkInfo.isConnectedOrConnecting();
+        if (isConnected && eFoodList != null) {
+            fetchFromServer();
+        } else {
+            fetchFromDb();
+        }
+    }
+
+    private void fetchFromDb() {
+    }
+
+    private void fetchFromServer() {
+        getFoods();
     }
 
     public void addFoods() {
