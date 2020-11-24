@@ -1,5 +1,6 @@
 package com.dakiiii.hungerwarrior.model;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -9,9 +10,8 @@ public class Cart {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
-    private Food eFood;
-
-    private int eQuantity;
+    @ColumnInfo(name = "quantity")
+    private int quantity;
 
     public Cart() {
     }
@@ -24,19 +24,11 @@ public class Cart {
         this.id = id;
     }
 
-    public Food getFood() {
-        return eFood;
-    }
-
-    public void setFood(Food food) {
-        eFood = food;
-    }
-
     public int getQuantity() {
-        return eQuantity;
+        return quantity;
     }
 
     public void setQuantity(int quantity) {
-        eQuantity = quantity;
+        this.quantity = quantity;
     }
 }

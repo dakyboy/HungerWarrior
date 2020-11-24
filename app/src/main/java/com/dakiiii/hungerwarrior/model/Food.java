@@ -1,6 +1,11 @@
 package com.dakiiii.hungerwarrior.model;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "foods_table")
 public class Food {
+    @PrimaryKey
     private int foodId;
 
     public int getFoodId() {

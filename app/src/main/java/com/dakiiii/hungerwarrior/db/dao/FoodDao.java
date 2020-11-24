@@ -5,21 +5,19 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.dakiiii.hungerwarrior.model.Cart;
 import com.dakiiii.hungerwarrior.model.Food;
 
 import java.util.List;
 
 @Dao
-public interface CartDao {
+public interface FoodDao {
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insert(Cart cart);
+    @Query("SELECT * FROM foods_table")
+    List<Food> getAllFoods();
 
-    @Query("DELETE FROM cart_table")
+    @Query("DELETE FROM foods_table")
     void deleteAll();
 
-    @Query("SELECT * FROM cart_table")
-    List<Cart> getCarts();
-
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void insertFood(Food food);
 }
