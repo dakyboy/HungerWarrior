@@ -20,4 +20,12 @@ public interface FoodDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertFood(Food food);
+
+//    @Query("SELECT * FROM user WHERE age BETWEEN :minAge AND :maxAge")
+//    public User[] loadAllUsersBetweenAges(int minAge, int maxAge);
+
+
+    @Query("SELECT foodId, foodName, foodPrice, foodDescription FROM foods_table WHERE foodId = :foodId")
+    Food getFood(int foodId);
+
 }

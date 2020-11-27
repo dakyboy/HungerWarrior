@@ -12,7 +12,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HungerWarrior">
-        <activity android:name=".CartActivity"></activity>
+        <activity
+            android:name=".CartActivity"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
         <activity
             android:name=".FoodActivity"
             android:parentActivityName=".MainActivity">

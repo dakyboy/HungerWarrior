@@ -13,6 +13,7 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
+        vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -49,7 +50,6 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:26.0.0')
     implementation 'com.firebaseui:firebase-ui-auth:6.2.0'
 
-    implementation 'com.facebook.android:facebook-android-sdk:5.15.3'
     implementation 'com.facebook.android:facebook-login:5.15.3'
 
     implementation 'com.google.firebase:firebase-firestore'

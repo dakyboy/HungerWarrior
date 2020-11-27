@@ -1,6 +1,7 @@
 package com.dakiiii.hungerwarrior;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.dakiiii.hungerwarrior.adapter.AllFoodsAdapter;
 import com.dakiiii.hungerwarrior.db.WarriorRoomDb;
 import com.dakiiii.hungerwarrior.model.Food;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,6 +41,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent intent = new Intent(this, CartActivity.class);
+//        intialize floating action button to open cart activity
+        FloatingActionButton floatingActionButtonCart = findViewById(R.id.floatingActionButton_cart);
+        floatingActionButtonCart.setOnClickListener(v -> startActivity(intent));
+
         eRecyclerView = findViewById(R.id.recyclerView_AllFoods);
         eRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         eAllFoodsAdapter = new AllFoodsAdapter(this, eFoodList);
@@ -71,9 +79,7 @@ public class MainActivity extends AppCompatActivity {
                         .getAllFoods();
 
                 eFoodList.clear();
-                for (Food food: foodList) {
-                    eFoodList.add(food);
-                }
+                eFoodList.addAll(foodList);
 
                 runOnUiThread(new Runnable() {
                     @Override

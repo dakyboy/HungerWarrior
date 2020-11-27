@@ -1,12 +1,18 @@
 package com.dakiiii.hungerwarrior.model;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "foods_table")
 public class Food {
     @PrimaryKey
     private int foodId;
+
+    @Ignore
+    public Food() {
+
+    }
 
     public int getFoodId() {
         return foodId;
@@ -22,9 +28,17 @@ public class Food {
     private String foodVendor;
     private String foodImageUrl;
 
+    @Ignore
     public Food(String foodName, int foodPrice) {
         this.foodName = foodName;
         this.foodPrice = foodPrice;
+    }
+
+    public Food(int foodId, String foodName, int foodPrice, String foodDescription) {
+        this.foodId = foodId;
+        this.foodName = foodName;
+        this.foodPrice = foodPrice;
+        this.foodDescription = foodDescription;
     }
 
     public String getFoodName() {

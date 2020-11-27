@@ -1,42 +1,74 @@
 package com.dakiiii.hungerwarrior.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
+@Entity(tableName = "orders_table")
 public class Order {
-    private static int eOrderId;
-    private static int eOrderTotal;
-    private static List<Food> eFoods = new ArrayList<>();
+    @PrimaryKey
+    private int orderId;
 
-    public Order(List<Food> foods) {
-        eFoods = foods;
-    }
+    private int customerId;
+    private int StatusId;
+    private int vendorId;
+
+    private boolean isPaid;
+    private int price;
+    private String note;
 
     public int getOrderId() {
-        return eOrderId;
+        return orderId;
     }
 
     public void setOrderId(int orderId) {
-        eOrderId = orderId;
+        this.orderId = orderId;
     }
 
-    public int getOrderTotal() {
-        return eOrderTotal;
+    public int getCustomerId() {
+        return customerId;
     }
 
-    public void setOrderTotal(int orderTotal) {
-        eOrderTotal = orderTotal;
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 
-    public List<Food> getFoods() {
-        return eFoods;
+    public int getStatusId() {
+        return StatusId;
     }
 
-    public void setFoods(List<Food> foods) {
-        eFoods = foods;
+    public void setStatusId(int statusId) {
+        StatusId = statusId;
     }
 
-    public static void addFoodToCart(Food food) {
-        eFoods.add(food);
+    public int getVendorId() {
+        return vendorId;
+    }
+
+    public void setVendorId(int vendorId) {
+        this.vendorId = vendorId;
+    }
+
+    public boolean isPaid() {
+        return isPaid;
+    }
+
+    public void setPaid(boolean paid) {
+        isPaid = paid;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 }

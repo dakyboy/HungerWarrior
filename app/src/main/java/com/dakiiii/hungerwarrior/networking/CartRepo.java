@@ -9,9 +9,9 @@ import com.dakiiii.hungerwarrior.model.Cart;
 import java.util.List;
 
 public class CartRepo {
-    private CartDao eCartDao;
+    private final CartDao eCartDao;
 
-    private List<Cart> eCarts;
+    private final List<Cart> eCarts;
 
     CartRepo(Application application) {
         WarriorRoomDb warriorRoomDb = WarriorRoomDb

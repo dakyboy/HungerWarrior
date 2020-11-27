@@ -2,7 +2,6 @@ package com.dakiiii.hungerwarrior.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +19,9 @@ import java.util.List;
 
 public class AllFoodsAdapter extends RecyclerView.Adapter<AllFoodsAdapter.AllFoodsViewHolder> {
 
+    public static final String EXTRA_FOOD_ID = "com.dakiiii.hungerwarrior.EXTRA.FOOD_ID";
     private List<Food> eFoods;
-    private Context eContext;
+    private final Context eContext;
 
     public AllFoodsAdapter(Context context, List<Food> foods) {
         eFoods = foods;
@@ -84,12 +84,7 @@ public class AllFoodsAdapter extends RecyclerView.Adapter<AllFoodsAdapter.AllFoo
                     Intent intent  = new Intent(context, FoodActivity.class);
                     Food food = eFoods.get(getAdapterPosition());
 
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("FOOD_ID", food.getFoodId());
-                    bundle.putString("FOOD_NAME", food.getFoodName());
-                    bundle.putInt("FOOD_PRICE", food.getFoodPrice());
-                    bundle.putString("FOOD_VENDOR", food.getFoodVendor());
-                    intent.putExtra("FOOD_DETAILS", bundle);
+                    intent.putExtra(EXTRA_FOOD_ID, food.getFoodId());
                     context.startActivity(intent);
                 }
             });

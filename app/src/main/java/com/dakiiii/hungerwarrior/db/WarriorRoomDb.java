@@ -28,12 +28,12 @@ public abstract class WarriorRoomDb extends RoomDatabase {
     public static final ExecutorService databaseWriterEXECUTOR_SERVICE =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
-    private static RoomDatabase.Callback sCallback = new Callback() {
+    private static final RoomDatabase.Callback sCallback = new Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
 
-            databaseWriterEXECUTOR_SERVICE.execute(()->{
+            databaseWriterEXECUTOR_SERVICE.execute(() -> {
                 FoodDao foodDao = sWarriorRoomDb.eFoodDao();
                 foodDao.deleteAll();
             });

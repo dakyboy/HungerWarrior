@@ -10,10 +10,21 @@ public class Cart {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
+    private int foodId;
+
     @ColumnInfo(name = "quantity")
     private int quantity;
 
-    public Cart() {
+    public Cart(int foodId) {
+        this.foodId = foodId;
+    }
+
+    public int getFoodId() {
+        return foodId;
+    }
+
+    public void setFoodId(int foodId) {
+        this.foodId = foodId;
     }
 
     public int getId() {

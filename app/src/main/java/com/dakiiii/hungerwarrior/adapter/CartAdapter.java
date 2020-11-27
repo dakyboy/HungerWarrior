@@ -9,13 +9,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dakiiii.hungerwarrior.R;
-import com.dakiiii.hungerwarrior.model.Food;
+import com.dakiiii.hungerwarrior.model.Cart;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
-    private final List<Food> eFoods = new ArrayList<>();
+
+    private List<Cart> eCartItems = new ArrayList<>();
 
     @NonNull
     @Override
@@ -32,10 +33,15 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     @Override
     public int getItemCount() {
 
-        if (eFoods != null) {
-            return eFoods.size();
+        if (eCartItems != null) {
+            return eCartItems.size();
         }
         return 0;
+    }
+
+    public void setCartItems(List<Cart> cartItems) {
+        eCartItems = cartItems;
+        notifyDataSetChanged();
     }
 
     public class CartViewHolder extends RecyclerView.ViewHolder {
