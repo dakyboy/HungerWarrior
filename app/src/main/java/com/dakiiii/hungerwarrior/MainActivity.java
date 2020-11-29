@@ -55,12 +55,16 @@ public class MainActivity extends AppCompatActivity {
         eWarriorRoomDb = WarriorRoomDb.getWarriorRoomDb(this);
 //        List<Food> foods = WebService.
 
-
+        populateFoodList();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+
+    }
+
+    private void populateFoodList() {
         NetworkInfo networkInfo = eConnectivityManager.getActiveNetworkInfo();
         boolean isConnected = networkInfo != null && networkInfo.isConnectedOrConnecting();
         if (isConnected && eFoodList != null) {

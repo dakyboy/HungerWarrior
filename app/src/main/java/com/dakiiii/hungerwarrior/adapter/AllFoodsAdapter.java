@@ -34,8 +34,7 @@ public class AllFoodsAdapter extends RecyclerView.Adapter<AllFoodsAdapter.AllFoo
     public AllFoodsAdapter.AllFoodsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(eContext).inflate(R.layout.all_foods_row_item,
                 parent, false);
-        AllFoodsViewHolder allFoodsViewHolder = new AllFoodsViewHolder(view);
-        return allFoodsViewHolder;
+        return new AllFoodsViewHolder(view);
     }
 
     @Override

@@ -42,37 +42,33 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                android:id="@+id/button_Cart_Delete"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                app:icon="@drawable/ic_baseline_delete_24"
-                app:layout_constraintBottom_toBottomOf="@+id/textView_Cart_FoodCost"
-                app:layout_constraintEnd_toStartOf="@+id/button_Cart_Edit"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/textView_Cart_FoodName"
-                app:layout_constraintStart_toStartOf="@+id/guideline3"
-                app:layout_constraintTop_toTopOf="@+id/textView_Cart_FoodName" />
-
-            <Button
-                android:id="@+id/button_Cart_Edit"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                app:backgroundTint="@color/ic_launcher_background"
-                app:icon="@drawable/ic_baseline_edit_24"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/button_Cart_Delete"
-                app:layout_constraintTop_toTopOf="@+id/button_Cart_Delete" />
-
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_begin="275dp" />
+                app:layout_constraintGuide_begin="155dp" />
+
+            <ImageButton
+                android:id="@+id/imageButton_Cart_edit"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView_Cart_FoodCost"
+                app:layout_constraintStart_toStartOf="@+id/guideline3"
+                app:layout_constraintTop_toTopOf="@+id/textView_Cart_FoodName"
+                app:srcCompat="@drawable/ic_baseline_edit_24" />
+
+            <ImageButton
+                android:id="@+id/imageButton_Cart_delete"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                app:layout_constraintStart_toEndOf="@+id/imageButton_Cart_edit"
+                app:layout_constraintTop_toTopOf="@+id/imageButton_Cart_edit"
+                app:srcCompat="@drawable/ic_baseline_delete_24" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
