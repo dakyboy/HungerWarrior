@@ -1,6 +1,9 @@
 package com.dakiiii.hungerwarrior.networking;
 
 import android.app.Application;
+import android.os.AsyncTask;
+
+import androidx.lifecycle.LiveData;
 
 import com.dakiiii.hungerwarrior.db.WarriorRoomDb;
 import com.dakiiii.hungerwarrior.db.dao.CartDao;
@@ -11,24 +14,46 @@ import java.util.List;
 public class CartRepo {
     private final CartDao eCartDao;
 
-    private final List<Cart> eCarts;
+    private final LiveData<List<Cart>> eCarts;
 
-    CartRepo(Application application) {
+    public CartRepo(Application application) {
         WarriorRoomDb warriorRoomDb = WarriorRoomDb
                 .getWarriorRoomDb(application);
         eCartDao = warriorRoomDb.eCartDao();
-        eCarts = eCartDao.getCarts();
+        eCarts = eCartDao.getLiveCartItems();
 
     }
 
-    public List<Cart> getCarts() {
-        return eCarts;
-    }
 
-    public void insert(Cart cart){
+    public void insert(Cart cart) {
         WarriorRoomDb.databaseWriterEXECUTOR_SERVICE
-                .execute(()-> {
+                .execute(() -> {
                     eCartDao.insert(cart);
                 });
+    }
+
+    public void deleteCart(Cart cartItem) {
+        new deleteCartItemAsyncTask(eCartDao).execute(cartItem);
+    }
+
+    public LiveData<List<Cart>> getLiveCartItems() {
+        return eCartDao.getLiveCartItems();
+    }
+
+    private static class deleteCartItemAsyncTask extends AsyncTask<Cart, Void, Void> {
+        private final CartDao eCartDao;
+
+        deleteCartItemAsyncTask(CartDao cartDao) {
+            eCartDao = cartDao;
+
+        }
+
+
+        @Override
+        protected Void doInBackground(Cart... carts) {
+            eCartDao.deleteCartItem(carts[0]);
+            return null;
+        }
+
     }
 }

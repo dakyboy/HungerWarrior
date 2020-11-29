@@ -19,6 +19,10 @@ import java.util.List;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
 
+    public List<Cart> getCartItems() {
+        return eCartItems;
+    }
+
     private List<Cart> eCartItems = new ArrayList<>();
     private WarriorRoomDb eWarriorRoomDb;
 
@@ -34,18 +38,25 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
-
         Cart cart = eCartItems.get(position);
 
-        Thread thread = new Thread(() -> {
-
-        });
-        Food food = eWarriorRoomDb.eFoodDao().getFood(cart.getFoodId());
 
         int quantity = cart.getQuantity();
-        holder.eCartFoodName.setText(quantity + " x " + food.getFoodName());
-        String cost = Integer.toString(quantity * food.getFoodPrice());
-        holder.eCartFoodCost.setText(cost);
+        Thread thread = new Thread(() -> {
+//            get food from db
+            Food food = eWarriorRoomDb.eFoodDao().getFood(cart.getFoodId());
+            holder.eCartFoodName.setText(quantity + " x " + food.getFoodName());
+//             calculate cart total cost
+
+
+            int cost = quantity * food.getFoodPrice();
+            String costText = Integer.toString(cost);
+            holder.eCartFoodCost.setText(costText);
+
+        });
+        thread.start();
+
+
     }
 
     @Override
@@ -62,9 +73,18 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         notifyDataSetChanged();
     }
 
+
+    public Cart getCartAtPosition(int position) {
+
+
+        return eCartItems.get(position);
+
+    }
+
     public static class CartViewHolder extends RecyclerView.ViewHolder {
         TextView eCartFoodName;
         TextView eCartFoodCost;
+        TextView eCartTotalTextView;
         ImageButton eCartDeleteButton;
         ImageButton eCartEditButton;
 
@@ -76,6 +96,16 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             eCartFoodCost = itemView.findViewById(R.id.textView_Cart_FoodCost);
             eCartDeleteButton = itemView.findViewById(R.id.imageButton_Cart_delete);
             eCartEditButton = itemView.findViewById(R.id.imageButton_Cart_edit);
+            eCartTotalTextView = itemView.findViewById(R.id.textViewTotalAmount);
+
+            eCartDeleteButton.setOnClickListener(v -> {
+
+            });
         }
+
+        private void deleteWord(Cart cart) {
+        }
+
+
     }
 }

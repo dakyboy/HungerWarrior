@@ -28,6 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginBottom="8dp"
         android:text="@string/total"
         android:textSize="21sp"
         android:textStyle="bold"
@@ -42,6 +43,7 @@
         android:layout_marginLeft="24dp"
         android:hint="@string/total"
         android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewTotal"
         app:layout_constraintStart_toEndOf="@+id/textViewTotal"
         app:layout_constraintTop_toTopOf="@+id/textViewTotal" />
 
