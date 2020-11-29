@@ -95,12 +95,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             eCartFoodName = itemView.findViewById(R.id.textView_Cart_FoodName);
             eCartFoodCost = itemView.findViewById(R.id.textView_Cart_FoodCost);
             eCartDeleteButton = itemView.findViewById(R.id.imageButton_Cart_delete);
-            eCartEditButton = itemView.findViewById(R.id.imageButton_Cart_edit);
             eCartTotalTextView = itemView.findViewById(R.id.textViewTotalAmount);
 
-            eCartDeleteButton.setOnClickListener(v -> {
 
-            });
         }
 
         private void deleteWord(Cart cart) {

@@ -16,11 +16,12 @@ public class CartViewModel extends AndroidViewModel {
     private final CartRepo eCartRepo;
     private final LiveData<List<Cart>> eListLiveData;
 
-    public CartViewModel(@NonNull Application application) {
-        super(application);
-        eCartRepo = new CartRepo(application);
-        eListLiveData = eCartRepo.getLiveCartItems();
-    }
+//    Cart Activity
+public CartViewModel(@NonNull Application application) {
+    super(application);
+    eCartRepo = new CartRepo(application);
+    eListLiveData = eCartRepo.getLiveCartItems();
+}
 
     public LiveData<List<Cart>> getListLiveData() {
         return eListLiveData;
@@ -32,6 +33,10 @@ public class CartViewModel extends AndroidViewModel {
 
     public void deleteCartItem(Cart cart) {
         eCartRepo.deleteCart(cart);
+    }
+
+    public void deleteAllCartItems() {
+        eCartRepo.deleteAll();
     }
 
 }

@@ -1,12 +1,15 @@
 package com.dakiiii.hungerwarrior;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -18,7 +21,6 @@ import com.dakiiii.hungerwarrior.db.WarriorRoomDb;
 import com.dakiiii.hungerwarrior.db.dao.CartDao;
 import com.dakiiii.hungerwarrior.model.Cart;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CartActivity extends AppCompatActivity {
@@ -36,6 +38,13 @@ public class CartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
+//        Action bar
+        Toolbar toolbarCart = findViewById(R.id.toolbar_cart);
+        setSupportActionBar(toolbarCart);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+//        recycler view
         eCartRecyclerView = findViewById(R.id.recyclerViewCart);
         eCartRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         eCartAdapter = new CartAdapter();
@@ -51,6 +60,7 @@ public class CartActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<Cart> carts) {
                 eCartAdapter.setCartItems(carts);
+                getCartTotal(carts);
 
             }
         });
@@ -80,37 +90,22 @@ public class CartActivity extends AppCompatActivity {
 
     }
 
-    private void deleteCartItem(Cart cart) {
-        new deleteCartItemAsyncTask(eCartDao).execute(cart);
-        eCartAdapter.notifyDataSetChanged();
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.cart_menu, menu);
+        return true;
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-//        getCartItems();
-
-    }
-
-    private void getCartItems() {
-        Thread thread = new Thread(() -> {
-            List<Cart> cartList = new ArrayList<>();
-            List<Cart> cartsDb = eWarriorRoomDb.eCartDao().getCarts();
-
-            cartList.addAll(cartsDb);
-
-
-            getCartTotal(cartList);
-
-            runOnUiThread(() -> {
-                eCartAdapter.setCartItems(cartList);
-
-            });
-        });
-
-
-        thread.start();
-
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int itemId = item.getItemId();
+        switch (itemId) {
+            case R.id.clearCart:
+                Toast.makeText(this, "Clearing cart", Toast.LENGTH_SHORT).show();
+                eCartViewModel.deleteAllCartItems();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void getCartTotal(List<Cart> carts) {
@@ -129,22 +124,5 @@ public class CartActivity extends AppCompatActivity {
             });
         });
         thread.start();
-    }
-
-    private static class deleteCartItemAsyncTask extends AsyncTask<Cart, Void, Void> {
-        private final CartDao eCartDao;
-
-        deleteCartItemAsyncTask(CartDao cartDao) {
-            eCartDao = cartDao;
-
-        }
-
-
-        @Override
-        protected Void doInBackground(Cart... carts) {
-            eCartDao.deleteCartItem(carts[0]);
-            return null;
-        }
-
     }
 }
