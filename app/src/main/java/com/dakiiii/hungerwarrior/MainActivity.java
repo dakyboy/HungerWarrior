@@ -1,6 +1,9 @@
 package com.dakiiii.hungerwarrior;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -14,8 +17,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.dakiiii.hungerwarrior.adapter.AllFoodsAdapter;
+import com.dakiiii.hungerwarrior.db.WarriorRoomDb;
 import com.dakiiii.hungerwarrior.model.Food;
-import com.dakiiii.hungerwarrior.networking.WebService;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,43 +32,72 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView eRecyclerView;
     private AllFoodsAdapter eAllFoodsAdapter;
-    private List<Food> eFoodList = new ArrayList<>();
-    private String foodsUrl = "https://hungerwarrior.herokuapp.com/api/foods";
+    private final List<Food> eFoodList = new ArrayList<>();
+    private final String foodsUrl = "https://hungerwarrior.herokuapp.com/api/foods";
+    private ConnectivityManager eConnectivityManager;
+    WarriorRoomDb eWarriorRoomDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent intent = new Intent(this, CartActivity.class);
+//        intialize floating action button to open cart activity
+        FloatingActionButton floatingActionButtonCart = findViewById(R.id.floatingActionButton_cart);
+        floatingActionButtonCart.setOnClickListener(v -> startActivity(intent));
+
         eRecyclerView = findViewById(R.id.recyclerView_AllFoods);
         eRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        addFoods();
         eAllFoodsAdapter = new AllFoodsAdapter(this, eFoodList);
         eRecyclerView.setAdapter(eAllFoodsAdapter);
-
+        eConnectivityManager = (ConnectivityManager) this.getSystemService(CONNECTIVITY_SERVICE);
+        eWarriorRoomDb = WarriorRoomDb.getWarriorRoomDb(this);
 //        List<Food> foods = WebService.
 
-
+        populateFoodList();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        getFoods();
+
     }
 
-    public void addFoods() {
-        Food food0 = new Food("Rolex", 1200);
-        eFoodList.add(food0);
-        Food food1 = new Food("Rolex", 3200);
-        eFoodList.add(food1);
-        Food food2 = new Food("Rolex", 2200);
-        eFoodList.add(food2);
-        Food food3 = new Food("Rolex", 1400);
-        eFoodList.add(food3);
-        Food food4 = new Food("Rolex", 1500);
-        eFoodList.add(food4);
-        Food food5 = new Food("Rolex", 1600);
-        eFoodList.add(food5);
+    private void populateFoodList() {
+        NetworkInfo networkInfo = eConnectivityManager.getActiveNetworkInfo();
+        boolean isConnected = networkInfo != null && networkInfo.isConnectedOrConnecting();
+        if (isConnected && eFoodList != null) {
+            fetchFromServer();
+        } else {
+            fetchFromDb();
+        }
+    }
+
+    private void fetchFromDb() {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                List<Food> foodList = eWarriorRoomDb
+                        .eFoodDao()
+                        .getAllFoods();
+
+                eFoodList.clear();
+                eFoodList.addAll(foodList);
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        eAllFoodsAdapter.notifyDataSetChanged();
+                    }
+                });
+            }
+        });
+        thread.start();
+    }
+
+    private void fetchFromServer() {
+        getFoods();
     }
 
     public void getFoods() {
@@ -84,12 +117,15 @@ public class MainActivity extends AppCompatActivity {
                         int food_price = jsonObject.getInt("food_price");
                         String food_name = jsonObject.getString("food_name");
                         String food_desc = jsonObject.getString("food_desc");
+                        String food_vendor = jsonObject.getString("food_vendor");
 
                         Food food = new Food(food_name, food_price);
                         food.setFoodId(foodId);
                         food.setFoodDescription(food_desc);
+                        food.setFoodVendor(food_vendor);
 
                         eFoodList.add(food);
+                        saveFoodToDb(food);
                     }
                     eAllFoodsAdapter.setFoods(eFoodList);
                     progressDialog.dismiss();
@@ -104,10 +140,26 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(MainActivity.this, "Fail", Toast.LENGTH_SHORT).show();
+                fetchFromDb();
                 Log.e(MainActivity.class.toString(), error.toString());
                 progressDialog.dismiss();
             }
         });
         VolleySingleton.getInstance(this).addToRequestQueue(jsonArrayRequest);
+    }
+
+    private void saveFoodToDb(Food food) {
+        WarriorRoomDb.databaseWriterEXECUTOR_SERVICE.execute(new Runnable() {
+            @Override
+            public void run() {
+                eWarriorRoomDb.eFoodDao().insertFood(food);
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        WarriorRoomDb.destroyDb();
     }
 }

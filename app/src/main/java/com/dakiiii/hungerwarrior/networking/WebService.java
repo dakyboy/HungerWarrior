@@ -2,7 +2,6 @@ package com.dakiiii.hungerwarrior.networking;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -20,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WebService {
-    private static String FOODS_URL = "https://hungerwarrior.herokuapp.com/api/foods";
+    private static final String FOODS_URL = "https://hungerwarrior.herokuapp.com/api/foods";
     Context eContext;
 
     public WebService(Context context) {
