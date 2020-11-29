@@ -1,26 +1,55 @@
 package com.dakiiii.hungerwarrior.networking;
 
 import android.app.Application;
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.dakiiii.hungerwarrior.MainActivity;
+import com.dakiiii.hungerwarrior.VolleySingleton;
 import com.dakiiii.hungerwarrior.db.WarriorRoomDb;
 import com.dakiiii.hungerwarrior.db.dao.CartDao;
+import com.dakiiii.hungerwarrior.db.dao.FoodDao;
 import com.dakiiii.hungerwarrior.model.Cart;
+import com.dakiiii.hungerwarrior.model.Food;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
 public class CartRepo {
     private final CartDao eCartDao;
+    private FoodDao eFoodDao;
+
+
 
     private final LiveData<List<Cart>> eCarts;
+    private LiveData<List<Food>> eFoods;
+    private MutableLiveData<List<Food>> eMutableLiveDataFoods = new MutableLiveData<>();
+    private List<Food> eFoodsFromWeb;
 
+    VolleySingleton eVolleySingleton;
     public CartRepo(Application application) {
         WarriorRoomDb warriorRoomDb = WarriorRoomDb
                 .getWarriorRoomDb(application);
+
+        eFoodsFromWeb = WebService.getFoods(application);
+        Log.d("Poka face", String.valueOf(eFoodsFromWeb.size()));
         eCartDao = warriorRoomDb.eCartDao();
         eCarts = eCartDao.getLiveCartItems();
+
+        eFoodDao =warriorRoomDb.eFoodDao();
+        eFoods = eFoodDao.getAllFoodsLiveData();
 
     }
 
@@ -44,24 +73,34 @@ public class CartRepo {
         return eCartDao.getLiveCartItems();
     }
 
-    /*private void getCartTotal(List<Cart> carts) {
-        Thread thread = new Thread(() -> {
-            for (int i = 0; i < carts.size(); i++) {
-                int foodPrice = eWarriorRoomDb.eFoodDao()
-                        .getFood(carts.get(i).getFoodId()).getFoodPrice();
+//    public int getCartTotal() {
+//
+//
+//        return 0;
+//    }
 
-                int itemQuantity = carts.get(i).getQuantity();
-                int itemCost = itemQuantity * foodPrice;
-                total += itemCost;
-            }
 
-            runOnUiThread(() -> {
-                eCartTotalTextView.setText(Integer.toString(total));
-            });
-        });
-        thread.start();
+    public LiveData<List<Food>> getFoodsLiveData() {
+        return eFoods;
     }
-    }*/
+
+    public List<Food> getFoodsFromWeb() {
+        return eFoodsFromWeb;
+    }
+
+    public void insertFood(Food food) {
+
+    }
+
+    private static class getCartTotal extends AsyncTask<List<Cart>, Void, Void> {
+
+        @Override
+        protected Void doInBackground(List<Cart>... lists) {
+
+
+            return null;
+        }
+    }
 
     //    delete an from item in the cart
     private static class deleteCartItemAsyncTask extends AsyncTask<Cart, Void, Void> {
@@ -96,4 +135,6 @@ public class CartRepo {
             return null;
         }
     }
+
+
 }

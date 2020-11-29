@@ -9,6 +9,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private final List<Food> eFoodList = new ArrayList<>();
     private final String foodsUrl = "https://hungerwarrior.herokuapp.com/api/foods";
     private ConnectivityManager eConnectivityManager;
+    private FoodViewModel eFoodViewModel;
     WarriorRoomDb eWarriorRoomDb;
 
     @Override
@@ -49,13 +52,27 @@ public class MainActivity extends AppCompatActivity {
 
         eRecyclerView = findViewById(R.id.recyclerView_AllFoods);
         eRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        eAllFoodsAdapter = new AllFoodsAdapter(this, eFoodList);
+        eAllFoodsAdapter = new AllFoodsAdapter(eFoodList);
         eRecyclerView.setAdapter(eAllFoodsAdapter);
+
+        eFoodViewModel = new ViewModelProvider
+                .AndroidViewModelFactory(getApplication())
+                .create(FoodViewModel.class);
+        eFoodViewModel.getFoodListLiveData().observe(this, new Observer<List<Food>>() {
+            @Override
+            public void onChanged(List<Food> foods) {
+                eAllFoodsAdapter.setFoods(foods);
+            }
+        });
+
+//        mvvm
+
+
         eConnectivityManager = (ConnectivityManager) this.getSystemService(CONNECTIVITY_SERVICE);
         eWarriorRoomDb = WarriorRoomDb.getWarriorRoomDb(this);
 //        List<Food> foods = WebService.
 
-        populateFoodList();
+//        populateFoodList();
     }
 
     @Override

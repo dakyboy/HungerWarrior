@@ -1,5 +1,6 @@
 package com.dakiiii.hungerwarrior.networking;
 
+import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
@@ -20,10 +21,25 @@ import java.util.List;
 
 public class WebService {
     private static final String FOODS_URL = "https://hungerwarrior.herokuapp.com/api/foods";
+    VolleySingleton eVolleySingleton;
     Context eContext;
 
     public WebService(Context context) {
         eContext = context;
+    }
+
+    public static WebService sWebService;
+
+    public static WebService getInstance(Context context) {
+
+        synchronized (WebService.class) {
+            if (sWebService == null) {
+                sWebService = new WebService(context);
+            }
+
+        }
+
+        return sWebService;
     }
 
     public static List<Food> getFoods(Context context) {
