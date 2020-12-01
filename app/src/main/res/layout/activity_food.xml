@@ -52,24 +52,26 @@
 
     <EditText
         android:id="@+id/editTextQuantity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_width="100dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginLeft="38dp"
         android:ems="10"
         android:hint="@string/quantity"
         android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="@+id/imageButtonMinus"
         app:layout_constraintStart_toEndOf="@+id/imageButtonMinus"
-        app:layout_constraintTop_toBottomOf="@+id/textViewFoodDesc" />
+        app:layout_constraintTop_toTopOf="@+id/imageButtonMinus" />
 
     <TextView
         android:id="@+id/textViewFoodDesc"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:hint="@string/food_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -113,8 +115,11 @@
         android:id="@+id/imageButtonAddQty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="38dp"
+        android:layout_marginLeft="38dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextQuantity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/editTextQuantity"
         app:layout_constraintTop_toTopOf="@+id/editTextQuantity"
@@ -122,12 +127,14 @@
 
     <ImageButton
         android:id="@+id/imageButtonMinus"
-        android:layout_width="78dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/editTextQuantity"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editTextQuantity"
+        app:layout_constraintTop_toBottomOf="@+id/textViewFoodDesc"
         app:srcCompat="@drawable/ic_baseline_remove_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

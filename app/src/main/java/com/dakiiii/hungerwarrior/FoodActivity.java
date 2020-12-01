@@ -13,26 +13,22 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.dakiiii.hungerwarrior.adapter.AllFoodsAdapter;
-import com.dakiiii.hungerwarrior.db.WarriorRoomDb;
 import com.dakiiii.hungerwarrior.model.Cart;
 import com.dakiiii.hungerwarrior.model.Food;
-import com.dakiiii.hungerwarrior.model.Order;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class FoodActivity extends AppCompatActivity {
 
     TextView eFoodNameTextView;
     TextView eFoodPriceTextView;
-    WarriorRoomDb eWarriorRoomDb;
     EditText eFoodQuantityEditText;
     Food eFood;
     private TextView eFoodDescTextView;
-    List<Food> eFoods;
-    static Order eOrder;
+
+    FoodActViewModel eFoodActViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,31 +48,28 @@ public class FoodActivity extends AppCompatActivity {
         eFoodQuantityEditText = findViewById(R.id.editTextQuantity);
         eFoodDescTextView = findViewById(R.id.textViewFoodDesc);
         eFood = new Food();
-        eWarriorRoomDb = WarriorRoomDb.getWarriorRoomDb(this);
 
 
-        eFoods = new ArrayList<>();
-//        eOrder = new Order(eFoods);
+        eFoodActViewModel = new ViewModelProvider
+                .AndroidViewModelFactory(getApplication()).create(FoodActViewModel.class);
+
 //        get intent from user selection
         Intent intent = getIntent();
         int foodId = intent.getIntExtra(AllFoodsAdapter.EXTRA_FOOD_ID, 0);
 
-        if (foodId != 0) {
-            WarriorRoomDb.databaseWriterEXECUTOR_SERVICE.execute(new Runnable() {
-                @Override
-                public void run() {
-                    eFood = eWarriorRoomDb.eFoodDao().getFood(foodId);
-                    eFoodNameTextView.setText(eFood.getFoodName());
-                    eFoodPriceTextView.setText(Integer.toString(eFood.getFoodPrice()));
-                    eFoodDescTextView.setText(eFood.getFoodDescription());
-                    eFoodQuantityEditText.setText("1");
 
+        if (foodId != 0) {
+
+            eFoodActViewModel.getFoodMutableLiveData(foodId).observe(this, new Observer<Food>() {
+                @Override
+                public void onChanged(Food food) {
+                    eFood = food;
+                    eFoodNameTextView.setText(food.getFoodName());
+                    eFoodPriceTextView.setText(String.valueOf(food.getFoodPrice()));
+                    eFoodDescTextView.setText(food.getFoodDescription());
+                    eFoodQuantityEditText.setText("1");
                 }
             });
-
-            /*eFoodNameTextView.setText(eFood.getFoodName());
-            eFoodPriceTextView.setText(eFood.getFoodPrice());*/
-
         }
 
 
@@ -85,18 +78,17 @@ public class FoodActivity extends AppCompatActivity {
     public void addToCart(View view) {
         int foodQty = Integer.parseInt(eFoodQuantityEditText.getText().toString().trim());
 
-//        Order.addFoodToCart(food);
         saveOrderItem(eFood.getFoodId(), foodQty);
-        Toast.makeText(this, "Food added to cart", Toast.LENGTH_SHORT).show();
+
 
     }
 
     private void saveOrderItem(int foodId, int foodQty) {
-        WarriorRoomDb.databaseWriterEXECUTOR_SERVICE.execute(() -> {
-            Cart cart = new Cart(foodId);
-            cart.setQuantity(foodQty);
-            eWarriorRoomDb.eCartDao().insert(cart);
-        });
+        Cart cart = new Cart(foodId);
+        cart.setQuantity(foodQty);
+        eFoodActViewModel.insert(cart);
+        Toast.makeText(this, "Food added to cart", Toast.LENGTH_SHORT).show();
+
     }
 
     //    create menu

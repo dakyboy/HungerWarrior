@@ -35,10 +35,11 @@ public class CartRepo {
     }
 
     public void insert(Cart cart) {
-        WarriorRoomDb.databaseWriterEXECUTOR_SERVICE
-                .execute(() -> {
-                    eCartDao.insert(cart);
-                });
+        new addCartItemAsyncTask(eFoodDao, eCartDao, eCartTotal).execute(cart);
+//        WarriorRoomDb.databaseWriterEXECUTOR_SERVICE
+//                .execute(() -> {
+//                    eCartDao.insert(cart);
+//                });
     }
 
     public MutableLiveData<Integer> getCartTotal() {
@@ -46,12 +47,12 @@ public class CartRepo {
         return eCartTotal;
     }
 
-//    Delete one cart
+    //    Delete one cart
     public void deleteCart(Cart cartItem) {
         new deleteCartItemAsyncTask(eCartDao, eFoodDao, eCartTotal).execute(cartItem);
     }
 
-//    Delete All cart items
+    //    Delete All cart items
     public void deleteAll() {
         new deleteAllItemCostAsyncTask(eCartDao, eCartTotal).execute();
     }
@@ -63,7 +64,7 @@ public class CartRepo {
 
 //        AsyncTask Inner classes
 
-//    AsyncTask to calculate total
+    //    AsyncTask to calculate total
     private static class calculateCartTotalAsyncTask extends AsyncTask<List<Void>, Void, Integer> {
 
         FoodDao eFoodDao;
@@ -105,6 +106,34 @@ public class CartRepo {
             return total;
         }
 
+    }
+
+    //    Add cart item to db
+    private static class addCartItemAsyncTask extends AsyncTask<Cart, Void, Void> {
+        CartDao eCartDao;
+        FoodDao eFoodDao;
+        MutableLiveData<Integer> eLiveData;
+
+        public addCartItemAsyncTask(FoodDao foodDao, CartDao cartDao, MutableLiveData<Integer> liveData) {
+
+            eCartDao = cartDao;
+            eFoodDao = foodDao;
+            eLiveData = liveData;
+        }
+
+
+        @Override
+        protected Void doInBackground(Cart... carts) {
+            Cart cart = carts[0];
+            eCartDao.insert(cart);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            new calculateCartTotalAsyncTask(eFoodDao, eCartDao, eLiveData);
+        }
     }
 
     //    delete an from item in the cart

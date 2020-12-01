@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -29,6 +30,7 @@ public class FoodRepo {
 
 
     private final LiveData<List<Food>> eFoodsData;
+    MutableLiveData<Food> eFoodMutableLiveData = new MutableLiveData<>();
     private final FoodDao eFoodDao;
     public Context eContext;
     VolleySingleton eVolleySingleton;
@@ -87,6 +89,38 @@ public class FoodRepo {
         return eFoodsData;
     }
 
+
+    public MutableLiveData<Food> getFoodById(int i) {
+        new getFoodByIdAsyncTask(eFoodMutableLiveData, eFoodDao).execute(i);
+        return eFoodMutableLiveData;
+    }
+
+    public static class getFoodByIdAsyncTask extends AsyncTask<Integer, Void, Food> {
+
+        MutableLiveData<Food> eFoodMutableLiveData;
+        FoodDao eFoodDao;
+
+        public getFoodByIdAsyncTask(MutableLiveData<Food> foodMutableLiveData, FoodDao foodDao) {
+            eFoodMutableLiveData = foodMutableLiveData;
+            eFoodDao = foodDao;
+        }
+
+        @Override
+        protected Food doInBackground(Integer... integers) {
+            int foodId = integers[0];
+            Food food = eFoodDao.getFood(foodId);
+            return food;
+        }
+
+        @Override
+        protected void onPostExecute(Food food) {
+            super.onPostExecute(food);
+            eFoodMutableLiveData.setValue(food);
+
+
+        }
+    }
+
     public static class saveFoodsToDbAsyncTask extends AsyncTask<Food, Void, Void> {
         FoodDao eFoodDao;
 
@@ -99,6 +133,7 @@ public class FoodRepo {
             eFoodDao.insertFood(foods[0]);
             return null;
         }
+
     }
 
 }
