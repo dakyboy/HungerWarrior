@@ -46,10 +46,12 @@ public class CartRepo {
         return eCartTotal;
     }
 
+//    Delete one cart
     public void deleteCart(Cart cartItem) {
         new deleteCartItemAsyncTask(eCartDao, eFoodDao, eCartTotal).execute(cartItem);
     }
 
+//    Delete All cart items
     public void deleteAll() {
         new deleteAllItemCostAsyncTask(eCartDao, eCartTotal).execute();
     }
@@ -61,6 +63,7 @@ public class CartRepo {
 
 //        AsyncTask Inner classes
 
+//    AsyncTask to calculate total
     private static class calculateCartTotalAsyncTask extends AsyncTask<List<Void>, Void, Integer> {
 
         FoodDao eFoodDao;
