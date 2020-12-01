@@ -56,6 +56,7 @@ public class CartActivity extends AppCompatActivity {
                 .AndroidViewModelFactory(getApplication())
                 .create(CartViewModel.class);
 
+//        cart items list
         eCartViewModel.getListLiveData().observe(this, new Observer<List<Cart>>() {
             @Override
             public void onChanged(List<Cart> carts) {
@@ -65,6 +66,8 @@ public class CartActivity extends AppCompatActivity {
             }
         });
 
+
+//        cart items total
 
         eCartViewModel.getCartTotal().observe(this, new Observer<Integer>() {
             @Override
@@ -117,21 +120,4 @@ public class CartActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void getCartTotal(List<Cart> carts) {
-        Thread thread = new Thread(() -> {
-            for (int i = 0; i < carts.size(); i++) {
-                int foodPrice = eWarriorRoomDb.eFoodDao()
-                        .getFood(carts.get(i).getFoodId()).getFoodPrice();
-
-                int itemQuantity = carts.get(i).getQuantity();
-                int itemCost = itemQuantity * foodPrice;
-                total += itemCost;
-            }
-
-            runOnUiThread(() -> {
-                eCartTotalTextView.setText(Integer.toString(total));
-            });
-        });
-        thread.start();
-    }
 }

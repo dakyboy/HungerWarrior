@@ -51,7 +51,7 @@ public class CartRepo {
     }
 
     public void deleteAll() {
-        new deleteAllItemCostAsyncTask(eCartDao).execute();
+        new deleteAllItemCostAsyncTask(eCartDao, eCartTotal).execute();
     }
 
     public LiveData<List<Cart>> getLiveCartItems() {
@@ -135,15 +135,23 @@ public class CartRepo {
     //Delete All items in cart
     private static class deleteAllItemCostAsyncTask extends AsyncTask<Void, Void, Void> {
         private final CartDao eCartDao;
+        MutableLiveData<Integer> eLiveData;
 
-        public deleteAllItemCostAsyncTask(CartDao cartDao) {
+        public deleteAllItemCostAsyncTask(CartDao cartDao, MutableLiveData data) {
             eCartDao = cartDao;
+            eLiveData = data;
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
             eCartDao.deleteAll();
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            eLiveData.setValue(0);
         }
     }
 
