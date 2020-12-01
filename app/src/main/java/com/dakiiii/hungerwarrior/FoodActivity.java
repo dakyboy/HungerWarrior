@@ -7,7 +7,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.dakiiii.hungerwarrior.adapter.AllFoodsAdapter;
 import com.dakiiii.hungerwarrior.db.WarriorRoomDb;
@@ -33,6 +35,14 @@ public class FoodActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food);
+
+//        Action bar
+        Toolbar toolbar = findViewById(R.id.toolbar_Food);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("Food");
+        actionBar.setDisplayShowTitleEnabled(true);
 
         eFoodNameTextView = findViewById(R.id.textViewFoodName);
         eFoodPriceTextView = findViewById(R.id.textViewFoodPrice);

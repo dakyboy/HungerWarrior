@@ -49,9 +49,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 //             calculate cart total cost
 
 
-            int cost = quantity * food.getFoodPrice();
+            int foodPrice = food.getFoodPrice();
+            int cost = quantity * foodPrice;
             String costText = Integer.toString(cost);
-            holder.eCartFoodCost.setText(costText);
+            holder.eCartFoodCost.setText(quantity + " x " + foodPrice + " = " + costText);
 
         });
         thread.start();

@@ -1,58 +1,38 @@
 package com.dakiiii.hungerwarrior.networking;
 
 import android.app.Application;
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
-import android.util.Log;
-import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.dakiiii.hungerwarrior.MainActivity;
-import com.dakiiii.hungerwarrior.VolleySingleton;
 import com.dakiiii.hungerwarrior.db.WarriorRoomDb;
 import com.dakiiii.hungerwarrior.db.dao.CartDao;
 import com.dakiiii.hungerwarrior.db.dao.FoodDao;
 import com.dakiiii.hungerwarrior.model.Cart;
-import com.dakiiii.hungerwarrior.model.Food;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.List;
 
 public class CartRepo {
+    private static final String TAG = "CartRepo";
     private final CartDao eCartDao;
-    private FoodDao eFoodDao;
-
-
+    FoodDao eFoodDao;
 
     private final LiveData<List<Cart>> eCarts;
-    private LiveData<List<Food>> eFoods;
-    private MutableLiveData<List<Food>> eMutableLiveDataFoods = new MutableLiveData<>();
-    private List<Food> eFoodsFromWeb;
+    MutableLiveData<Integer> eCartTotal = new MutableLiveData<>();
 
-    VolleySingleton eVolleySingleton;
     public CartRepo(Application application) {
         WarriorRoomDb warriorRoomDb = WarriorRoomDb
                 .getWarriorRoomDb(application);
 
-        eFoodsFromWeb = WebService.getFoods(application);
-        Log.d("Poka face", String.valueOf(eFoodsFromWeb.size()));
+
         eCartDao = warriorRoomDb.eCartDao();
+        eFoodDao = warriorRoomDb.eFoodDao();
+
         eCarts = eCartDao.getLiveCartItems();
 
-        eFoodDao =warriorRoomDb.eFoodDao();
-        eFoods = eFoodDao.getAllFoodsLiveData();
 
     }
-
 
     public void insert(Cart cart) {
         WarriorRoomDb.databaseWriterEXECUTOR_SERVICE
@@ -61,8 +41,13 @@ public class CartRepo {
                 });
     }
 
+    public MutableLiveData<Integer> getCartTotal() {
+        new calculateCartTotalAsyncTask(eFoodDao, eCartDao, eCartTotal).execute();
+        return eCartTotal;
+    }
+
     public void deleteCart(Cart cartItem) {
-        new deleteCartItemAsyncTask(eCartDao).execute(cartItem);
+        new deleteCartItemAsyncTask(eCartDao, eFoodDao, eCartTotal).execute(cartItem);
     }
 
     public void deleteAll() {
@@ -73,42 +58,62 @@ public class CartRepo {
         return eCartDao.getLiveCartItems();
     }
 
-//    public int getCartTotal() {
-//
-//
-//        return 0;
-//    }
 
+//        AsyncTask Inner classes
 
-    public LiveData<List<Food>> getFoodsLiveData() {
-        return eFoods;
-    }
+    private static class calculateCartTotalAsyncTask extends AsyncTask<List<Void>, Void, Integer> {
 
-    public List<Food> getFoodsFromWeb() {
-        return eFoodsFromWeb;
-    }
+        FoodDao eFoodDao;
+        CartDao eCartDao;
+        MutableLiveData<Integer> eData;
 
-    public void insertFood(Food food) {
+        public calculateCartTotalAsyncTask(FoodDao foodDao, CartDao cartDao, MutableLiveData<Integer> liveData) {
+            eFoodDao = foodDao;
+            eCartDao = cartDao;
+            eData = liveData;
+        }
 
-    }
-
-    private static class getCartTotal extends AsyncTask<List<Cart>, Void, Void> {
 
         @Override
-        protected Void doInBackground(List<Cart>... lists) {
+        protected Integer doInBackground(List<Void>... lists) {
 
-
-            return null;
+            return calculateCartTotal();
         }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+            super.onPostExecute(integer);
+            if (eData == null) return;
+
+            eData.setValue(integer);
+
+        }
+
+        private int calculateCartTotal() {
+            int total = 0;
+            List<Cart> cartList = eCartDao.getCarts();
+            for (int i = 0; i < cartList.size(); i++) {
+                Cart cart = cartList.get(i);
+                int quantity = cart.getQuantity();
+                int foodPrice = eFoodDao.getFood(cart.getFoodId()).getFoodPrice();
+                int itemCost = foodPrice * quantity;
+                total += itemCost;
+            }
+            return total;
+        }
+
     }
 
     //    delete an from item in the cart
     private static class deleteCartItemAsyncTask extends AsyncTask<Cart, Void, Void> {
         private final CartDao eCartDao;
+        FoodDao eFoodDao;
+        MutableLiveData<Integer> eLiveData;
 
-        deleteCartItemAsyncTask(CartDao cartDao) {
+        deleteCartItemAsyncTask(CartDao cartDao, FoodDao foodDao, MutableLiveData<Integer> data) {
             eCartDao = cartDao;
-
+            eFoodDao = foodDao;
+            eLiveData = data;
 
         }
 
@@ -116,9 +121,15 @@ public class CartRepo {
         @Override
         protected Void doInBackground(Cart... carts) {
             eCartDao.deleteCartItem(carts[0]);
+
             return null;
         }
 
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            new calculateCartTotalAsyncTask(eFoodDao, eCartDao, eLiveData).execute();
+        }
     }
 
     //Delete All items in cart
@@ -136,5 +147,15 @@ public class CartRepo {
         }
     }
 
+    private static class getCartItems extends AsyncTask<Void, Void, Void> {
+
+        CartDao eCartDao;
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            eCartDao.getCarts();
+            return null;
+        }
+    }
 
 }

@@ -60,11 +60,20 @@ public class CartActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<Cart> carts) {
                 eCartAdapter.setCartItems(carts);
-                getCartTotal(carts);
+//                getCartTotal(carts);
 
             }
         });
 
+
+        eCartViewModel.getCartTotal().observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                eCartTotalTextView.setText(String.valueOf(integer));
+            }
+        });
+
+//        item click listener
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(
                 new ItemTouchHelper.SimpleCallback(0
                         , ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
