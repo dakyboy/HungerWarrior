@@ -17,8 +17,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dakiiii.hungerwarrior.adapter.CartAdapter;
-import com.dakiiii.hungerwarrior.db.WarriorRoomDb;
-import com.dakiiii.hungerwarrior.db.dao.CartDao;
 import com.dakiiii.hungerwarrior.model.Cart;
 
 import java.util.List;
@@ -27,10 +25,8 @@ public class CartActivity extends AppCompatActivity {
 
     private RecyclerView eCartRecyclerView;
     private CartAdapter eCartAdapter;
-    private WarriorRoomDb eWarriorRoomDb;
     TextView eCartTotalTextView;
     int total = 0;
-    private CartDao eCartDao;
     private CartViewModel eCartViewModel;
 
     @Override
@@ -49,9 +45,9 @@ public class CartActivity extends AppCompatActivity {
         eCartRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         eCartAdapter = new CartAdapter();
         eCartRecyclerView.setAdapter(eCartAdapter);
-        eWarriorRoomDb = WarriorRoomDb.getWarriorRoomDb(this);
-        eCartDao = eWarriorRoomDb.eCartDao();
         eCartTotalTextView = findViewById(R.id.textViewTotalAmount);
+
+//        View Models
         eCartViewModel = new ViewModelProvider
                 .AndroidViewModelFactory(getApplication())
                 .create(CartViewModel.class);
@@ -61,7 +57,6 @@ public class CartActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<Cart> carts) {
                 eCartAdapter.setCartItems(carts);
-//                getCartTotal(carts);
 
             }
         });
@@ -112,12 +107,15 @@ public class CartActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
         switch (itemId) {
-            case R.id.clearCart:
+            case R.id.menu_item_clearCart:
                 Toast.makeText(this, "Clearing cart", Toast.LENGTH_SHORT).show();
                 eCartViewModel.deleteAllCartItems();
                 return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
+
     }
 
 }

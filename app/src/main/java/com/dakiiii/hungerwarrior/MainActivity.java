@@ -1,9 +1,11 @@
 package com.dakiiii.hungerwarrior;
 
 import android.content.Intent;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -13,9 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dakiiii.hungerwarrior.adapter.AllFoodsAdapter;
-import com.dakiiii.hungerwarrior.db.WarriorRoomDb;
 import com.dakiiii.hungerwarrior.model.Food;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private AllFoodsAdapter eAllFoodsAdapter;
     private final List<Food> eFoodList = new ArrayList<>();
     private final String foodsUrl = "https://hungerwarrior.herokuapp.com/api/foods";
-    private ConnectivityManager eConnectivityManager;
     private FoodViewModel eFoodViewModel;
-    WarriorRoomDb eWarriorRoomDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +39,7 @@ public class MainActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowTitleEnabled(true);
 
-        Intent intent = new Intent(this, CartActivity.class);
-//        intialize floating action button to open cart activity
-        FloatingActionButton floatingActionButtonCart = findViewById(R.id.floatingActionButton_cart);
-        floatingActionButtonCart.setOnClickListener(v -> startActivity(intent));
-
+//        Recycler view for foods
         eRecyclerView = findViewById(R.id.recyclerView_AllFoods);
         eRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         eAllFoodsAdapter = new AllFoodsAdapter(eFoodList);
@@ -62,8 +56,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_main_menu, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int itemId = item.getItemId();
+        switch (itemId) {
+            case R.id.menu_item_cart:
+                Intent intent = new Intent(this, CartActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
 
     }
 }
