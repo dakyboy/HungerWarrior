@@ -87,7 +87,7 @@ public class FoodActivity extends AppCompatActivity {
         Cart cart = new Cart(foodId);
         cart.setQuantity(foodQty);
         eFoodActViewModel.insert(cart);
-        Toast.makeText(this, "Food added to cart", Toast.LENGTH_SHORT).show();
+        Toast.makeText(FoodActivity.this, "Food added to cart", Toast.LENGTH_SHORT).show();
 
     }
 

@@ -1,5 +1,6 @@
 package com.dakiiii.hungerwarrior;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -121,5 +122,6 @@ public class CartActivity extends AppCompatActivity {
 
     public void placeOrder(View view) {
 
+        startActivity(new Intent(this, OrderActivity.class));
     }
 }

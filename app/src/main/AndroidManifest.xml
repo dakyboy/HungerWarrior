@@ -13,6 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
         <activity
+            android:name=".OrderActivity"
+            android:parentActivityName=".CartActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".CartActivity" />
+        </activity>
+        <activity
             android:name=".CartActivity"
             android:parentActivityName=".MainActivity">
             <meta-data
