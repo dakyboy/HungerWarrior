@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView eRecyclerView;
     private AllFoodsAdapter eAllFoodsAdapter;
     private final List<Food> eFoodList = new ArrayList<>();
-    private final String foodsUrl = "https://hungerwarrior.herokuapp.com/api/foods";
     private FoodViewModel eFoodViewModel;
 
     @Override

@@ -25,4 +25,5 @@
     <string name="payment_type">payment Type</string>
     <string name="pick_up">Pick up</string>
     <string name="delivery">Delivery</string>
+    <string name="button_cart_continue">Continue</string>
 </resources>

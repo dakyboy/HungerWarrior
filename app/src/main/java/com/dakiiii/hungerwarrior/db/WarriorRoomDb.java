@@ -2,21 +2,15 @@ package com.dakiiii.hungerwarrior.db;
 
 import android.content.Context;
 
-import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.dakiiii.hungerwarrior.db.dao.CartDao;
 import com.dakiiii.hungerwarrior.db.dao.FoodDao;
 import com.dakiiii.hungerwarrior.model.Cart;
 import com.dakiiii.hungerwarrior.model.Food;
-import com.dakiiii.hungerwarrior.networking.CartRepo;
-import com.dakiiii.hungerwarrior.networking.WebService;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 

@@ -10,4 +10,6 @@ public class OrderItem {
     private int orderId;
     private int foodId;
     private int quantity;
+
+
 }
