@@ -3,7 +3,6 @@ package com.dakiiii.hungerwarrior.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -49,9 +48,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 //             calculate cart total cost
 
 
-            int cost = quantity * food.getFoodPrice();
+            int foodPrice = food.getFoodPrice();
+            int cost = quantity * foodPrice;
             String costText = Integer.toString(cost);
-            holder.eCartFoodCost.setText(costText);
+            holder.eCartFoodCost.setText(quantity + " x " + foodPrice + " = " + costText);
 
         });
         thread.start();
@@ -85,8 +85,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         TextView eCartFoodName;
         TextView eCartFoodCost;
         TextView eCartTotalTextView;
-        ImageButton eCartDeleteButton;
-        ImageButton eCartEditButton;
 
 
         public CartViewHolder(@NonNull View itemView) {
@@ -94,7 +92,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
             eCartFoodName = itemView.findViewById(R.id.textView_Cart_FoodName);
             eCartFoodCost = itemView.findViewById(R.id.textView_Cart_FoodCost);
-            eCartDeleteButton = itemView.findViewById(R.id.imageButton_Cart_delete);
             eCartTotalTextView = itemView.findViewById(R.id.textViewTotalAmount);
 
 

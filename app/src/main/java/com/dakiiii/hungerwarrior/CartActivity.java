@@ -1,8 +1,10 @@
 package com.dakiiii.hungerwarrior;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,8 +19,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dakiiii.hungerwarrior.adapter.CartAdapter;
-import com.dakiiii.hungerwarrior.db.WarriorRoomDb;
-import com.dakiiii.hungerwarrior.db.dao.CartDao;
 import com.dakiiii.hungerwarrior.model.Cart;
 
 import java.util.List;
@@ -27,10 +27,8 @@ public class CartActivity extends AppCompatActivity {
 
     private RecyclerView eCartRecyclerView;
     private CartAdapter eCartAdapter;
-    private WarriorRoomDb eWarriorRoomDb;
     TextView eCartTotalTextView;
     int total = 0;
-    private CartDao eCartDao;
     private CartViewModel eCartViewModel;
 
     @Override
@@ -49,22 +47,33 @@ public class CartActivity extends AppCompatActivity {
         eCartRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         eCartAdapter = new CartAdapter();
         eCartRecyclerView.setAdapter(eCartAdapter);
-        eWarriorRoomDb = WarriorRoomDb.getWarriorRoomDb(this);
-        eCartDao = eWarriorRoomDb.eCartDao();
         eCartTotalTextView = findViewById(R.id.textViewTotalAmount);
+
+//        View Models
         eCartViewModel = new ViewModelProvider
                 .AndroidViewModelFactory(getApplication())
                 .create(CartViewModel.class);
 
+//        cart items list
         eCartViewModel.getListLiveData().observe(this, new Observer<List<Cart>>() {
             @Override
             public void onChanged(List<Cart> carts) {
                 eCartAdapter.setCartItems(carts);
-                getCartTotal(carts);
 
             }
         });
 
+
+//        cart items total
+
+        eCartViewModel.getCartTotal().observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                eCartTotalTextView.setText(String.valueOf(integer));
+            }
+        });
+
+//        item click listener
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(
                 new ItemTouchHelper.SimpleCallback(0
                         , ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -100,29 +109,19 @@ public class CartActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
         switch (itemId) {
-            case R.id.clearCart:
+            case R.id.menu_item_clearCart:
                 Toast.makeText(this, "Clearing cart", Toast.LENGTH_SHORT).show();
                 eCartViewModel.deleteAllCartItems();
                 return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
+
     }
 
-    private void getCartTotal(List<Cart> carts) {
-        Thread thread = new Thread(() -> {
-            for (int i = 0; i < carts.size(); i++) {
-                int foodPrice = eWarriorRoomDb.eFoodDao()
-                        .getFood(carts.get(i).getFoodId()).getFoodPrice();
+    public void placeOrder(View view) {
 
-                int itemQuantity = carts.get(i).getQuantity();
-                int itemCost = itemQuantity * foodPrice;
-                total += itemCost;
-            }
-
-            runOnUiThread(() -> {
-                eCartTotalTextView.setText(Integer.toString(total));
-            });
-        });
-        thread.start();
+        startActivity(new Intent(this, OrderActivity.class));
     }
 }

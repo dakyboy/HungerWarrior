@@ -21,18 +21,17 @@ public class AllFoodsAdapter extends RecyclerView.Adapter<AllFoodsAdapter.AllFoo
 
     public static final String EXTRA_FOOD_ID = "com.dakiiii.hungerwarrior.EXTRA.FOOD_ID";
     private List<Food> eFoods;
-    private final Context eContext;
 
-    public AllFoodsAdapter(Context context, List<Food> foods) {
+    public AllFoodsAdapter(List<Food> foods) {
         eFoods = foods;
-        eContext = context;
     }
 
 
     @NonNull
     @Override
     public AllFoodsAdapter.AllFoodsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(eContext).inflate(R.layout.all_foods_row_item,
+        Context context = parent.getContext();
+        View view = LayoutInflater.from(context).inflate(R.layout.all_foods_row_item,
                 parent, false);
         return new AllFoodsViewHolder(view);
     }

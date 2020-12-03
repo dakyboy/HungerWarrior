@@ -1,5 +1,6 @@
 package com.dakiiii.hungerwarrior.model;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -44,4 +45,9 @@ public class Cart {
     }
 
 
+    @NonNull
+    @Override
+    public String toString() {
+        return this.toString();
+    }
 }
