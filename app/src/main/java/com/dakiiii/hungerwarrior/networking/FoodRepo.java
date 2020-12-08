@@ -47,6 +47,10 @@ public class FoodRepo {
 //        new saveFoodsToDbAsyncTask().execute();
     }
 
+    public void refreshFoodsDb() {
+        getFoods(eVolleySingleton, eFoodDao);
+    }
+
     //    get foods from hunger warrior api
     public static void getFoods(VolleySingleton volleySingleton, FoodDao foodDao) {
 

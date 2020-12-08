@@ -14,12 +14,9 @@ import com.dakiiii.hungerwarrior.db.WarriorRoomDb;
 import com.dakiiii.hungerwarrior.db.dao.CartDao;
 import com.dakiiii.hungerwarrior.db.dao.FoodDao;
 import com.dakiiii.hungerwarrior.model.Cart;
-import com.dakiiii.hungerwarrior.model.OrderRequest;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 
 import java.util.HashMap;
 import java.util.List;
@@ -30,6 +27,8 @@ public class OrderRepo {
     public static final String KEY_ORDER_CUSTOMER_ID = "customer_id";
     public static final String KEY_ORDER_CART_ITEMS = "order_items";
     public static final String KEY_ORDER_ORDER_TOTAL = "order_total";
+
+
     VolleySingleton eVolleySingleton;
     CartDao eCartDao;
     FoodDao eFoodDao;
@@ -54,7 +53,7 @@ public class OrderRepo {
         CartDao eCartDao;
         FoodDao eFoodDao;
         FirebaseUser eFirebaseUser;
-        private VolleySingleton eVolleySingleton;
+        private final VolleySingleton eVolleySingleton;
 
         public sendOrderRequestAsyncTask(FoodDao foodDao, CartDao cartDao
                 , VolleySingleton volleySingleton, FirebaseUser firebaseUser) {
@@ -73,6 +72,7 @@ public class OrderRepo {
                 @Override
                 public void onResponse(String response) {
                     Log.i("Fear not ye man", response);
+
 
                 }
             }, new Response.ErrorListener() {
@@ -107,7 +107,7 @@ public class OrderRepo {
             };
 
             eVolleySingleton.addToRequestQueue(stringRequest);
-
+            eCartDao.deleteAll();
             return null;
         }
     }

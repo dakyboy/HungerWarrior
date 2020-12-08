@@ -26,4 +26,8 @@ public class FoodViewModel extends AndroidViewModel {
     public LiveData<List<Food>> getFoodListLiveData() {
         return eFoodListLiveData;
     }
+
+    public void getFoodsFromServer() {
+        eFoodRepo.refreshFoodsDb();
+    }
 }

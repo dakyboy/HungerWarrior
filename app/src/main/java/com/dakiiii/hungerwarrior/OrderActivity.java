@@ -1,8 +1,9 @@
 package com.dakiiii.hungerwarrior;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.Button;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,11 +12,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.dakiiii.hungerwarrior.model.Order;
-import com.dakiiii.hungerwarrior.model.OrderRequest;
-
 public class OrderActivity extends AppCompatActivity {
 
+    private Button eButtonPlaceOrder;
     OrderViewModel eOrderViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +26,8 @@ public class OrderActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        eButtonPlaceOrder = findViewById(R.id.button_SendOrder);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -40,7 +41,10 @@ public class OrderActivity extends AppCompatActivity {
     }
 
     public void sendOrder(View view) {
+        eButtonPlaceOrder.setEnabled(false);
         eOrderViewModel.sendOrderRequest();
-        Toast.makeText(this, "we temp made it", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(OrderActivity.this, OrderTrackActivity.class);
+        startActivity(intent);
+
     }
 }

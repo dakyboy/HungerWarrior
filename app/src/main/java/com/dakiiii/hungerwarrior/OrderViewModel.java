@@ -5,8 +5,6 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
-import com.dakiiii.hungerwarrior.model.Order;
-import com.dakiiii.hungerwarrior.model.OrderRequest;
 import com.dakiiii.hungerwarrior.networking.OrderRepo;
 
 public class OrderViewModel extends AndroidViewModel {
@@ -22,4 +20,6 @@ public class OrderViewModel extends AndroidViewModel {
     public void sendOrderRequest(){
         eOrderRepo.sendOrderRequest();
     }
+
+
 }
