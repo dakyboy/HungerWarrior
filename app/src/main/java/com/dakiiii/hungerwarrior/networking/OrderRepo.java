@@ -46,6 +46,7 @@ public class OrderRepo {
 
     public void sendOrderRequest() {
         new sendOrderRequestAsyncTask(eFoodDao, eCartDao, eVolleySingleton, eFirebaseUser).execute();
+
     }
 
 
@@ -72,6 +73,7 @@ public class OrderRepo {
                 @Override
                 public void onResponse(String response) {
                     Log.i("Fear not ye man", response);
+                    eCartDao.deleteAll();
 
 
                 }
@@ -98,7 +100,7 @@ public class OrderRepo {
                     Gson gson = new Gson();
 
                     Map<String, String> params = new HashMap<>();
-                    params.put(KEY_ORDER_CUSTOMER_ID, eFirebaseUser.getUid());
+                    params.put(KEY_ORDER_CUSTOMER_ID, eFirebaseUser.getDisplayName());
                     params.put(KEY_ORDER_CART_ITEMS, gson.toJson(cartList));
                     params.put(KEY_ORDER_ORDER_TOTAL, String.valueOf(total));
                     Log.d("who dis", params.toString());
@@ -107,8 +109,15 @@ public class OrderRepo {
             };
 
             eVolleySingleton.addToRequestQueue(stringRequest);
-            eCartDao.deleteAll();
+
             return null;
+
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+//            eCartDao.deleteAll();
         }
     }
 }
