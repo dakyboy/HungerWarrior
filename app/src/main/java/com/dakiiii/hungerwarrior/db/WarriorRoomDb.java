@@ -8,17 +8,23 @@ import androidx.room.RoomDatabase;
 
 import com.dakiiii.hungerwarrior.db.dao.CartDao;
 import com.dakiiii.hungerwarrior.db.dao.FoodDao;
+import com.dakiiii.hungerwarrior.db.dao.OrderItemDao;
 import com.dakiiii.hungerwarrior.model.Cart;
 import com.dakiiii.hungerwarrior.model.Food;
+import com.dakiiii.hungerwarrior.model.Order;
+import com.dakiiii.hungerwarrior.model.OrderItem;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Food.class, Cart.class}, version = 1, exportSchema = false)
+@Database(entities = {Food.class, Cart.class, OrderItem.class, Order.class}, version = 1, exportSchema = false)
 public abstract class WarriorRoomDb extends RoomDatabase {
 
     public abstract CartDao eCartDao();
+
     public abstract FoodDao eFoodDao();
+
+    public abstract OrderItemDao eOrderItemDao();
 
 
     private static volatile WarriorRoomDb sWarriorRoomDb;
