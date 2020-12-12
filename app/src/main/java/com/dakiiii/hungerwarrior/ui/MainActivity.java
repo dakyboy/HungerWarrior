@@ -14,10 +14,10 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.dakiiii.hungerwarrior.FoodViewModel;
 import com.dakiiii.hungerwarrior.R;
 import com.dakiiii.hungerwarrior.adapter.AllFoodsAdapter;
 import com.dakiiii.hungerwarrior.model.Food;
+import com.dakiiii.hungerwarrior.ui.viewmodel.FoodViewModel;
 
 import java.util.ArrayList;
 import java.util.List;

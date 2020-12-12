@@ -10,7 +10,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.dakiiii.hungerwarrior.VolleySingleton;
 import com.dakiiii.hungerwarrior.db.WarriorRoomDb;
 import com.dakiiii.hungerwarrior.db.dao.CartDao;
 import com.dakiiii.hungerwarrior.db.dao.FoodDao;
@@ -74,7 +73,7 @@ public class OrderRepo {
                 @Override
                 public void onResponse(String response) {
                     Log.i("Fear not ye man", response);
-                    eCartDao.deleteAll();
+
 
 
                 }
@@ -123,7 +122,13 @@ public class OrderRepo {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-//            eCartDao.deleteAll();
+            WarriorRoomDb.databaseWriterEXECUTOR_SERVICE.execute(new Runnable() {
+                @Override
+                public void run() {
+                    eCartDao.deleteAll();
+                }
+            });
+
         }
     }
 }

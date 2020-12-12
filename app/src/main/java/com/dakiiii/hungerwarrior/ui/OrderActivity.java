@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,9 +13,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.dakiiii.hungerwarrior.AddOrderDetailsFragment;
-import com.dakiiii.hungerwarrior.OrderViewModel;
 import com.dakiiii.hungerwarrior.R;
+import com.dakiiii.hungerwarrior.ui.viewmodel.OrderViewModel;
 
 public class OrderActivity extends AppCompatActivity {
 
@@ -36,7 +36,7 @@ public class OrderActivity extends AppCompatActivity {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.frag_container_orders, new AddOrderDetailsFragment())
+        transaction.add(R.id.frag_container_orders, new OrderTrackActivity.AddOrderDetailsFragment())
                 .addToBackStack(null)
                 .commit();
 
@@ -48,7 +48,8 @@ public class OrderActivity extends AppCompatActivity {
     public void sendOrder(View view) {
         eButtonPlaceOrder.setEnabled(false);
         eOrderViewModel.sendOrderRequest();
-        Intent intent = new Intent(OrderActivity.this, OrderTrackActivity.class);
+        Toast.makeText(this, "Order sent", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
 
     }
