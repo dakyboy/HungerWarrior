@@ -13,32 +13,32 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
         <activity
-            android:name=".OrderTrackActivity"
-            android:parentActivityName=".OrderActivity">
+            android:name=".ui.OrderTrackActivity"
+            android:parentActivityName=".ui.OrderActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".OrderActivity" />
+                android:value=".ui.OrderActivity" />
         </activity>
         <activity
-            android:name=".OrderActivity"
-            android:parentActivityName=".CartActivity">
+            android:name=".ui.OrderActivity"
+            android:parentActivityName=".ui.CartActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".CartActivity" />
+                android:value=".ui.CartActivity" />
         </activity>
         <activity
-            android:name=".CartActivity"
-            android:parentActivityName=".MainActivity">
+            android:name=".ui.CartActivity"
+            android:parentActivityName=".ui.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".ui.MainActivity" />
         </activity>
         <activity
-            android:name=".FoodActivity"
-            android:parentActivityName=".MainActivity">
+            android:name=".ui.FoodActivity"
+            android:parentActivityName=".ui.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".ui.MainActivity" />
         </activity>
         <activity android:name=".login.FirebaseUiLoginActivity">
             <intent-filter>
@@ -47,7 +47,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".ui.MainActivity" />
     </application>
 
 </manifest>

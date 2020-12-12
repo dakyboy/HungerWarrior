@@ -12,11 +12,11 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.dakiiii.hungerwarrior.MainActivity;
 import com.dakiiii.hungerwarrior.VolleySingleton;
 import com.dakiiii.hungerwarrior.db.WarriorRoomDb;
 import com.dakiiii.hungerwarrior.db.dao.FoodDao;
 import com.dakiiii.hungerwarrior.model.Food;
+import com.dakiiii.hungerwarrior.ui.MainActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;

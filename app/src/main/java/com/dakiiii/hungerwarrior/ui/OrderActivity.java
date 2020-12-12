@@ -1,4 +1,4 @@
-package com.dakiiii.hungerwarrior;
+package com.dakiiii.hungerwarrior.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,10 +12,15 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.dakiiii.hungerwarrior.AddOrderDetailsFragment;
+import com.dakiiii.hungerwarrior.OrderViewModel;
+import com.dakiiii.hungerwarrior.R;
+
 public class OrderActivity extends AppCompatActivity {
 
     private Button eButtonPlaceOrder;
     OrderViewModel eOrderViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -1,4 +1,4 @@
-package com.dakiiii.hungerwarrior;
+package com.dakiiii.hungerwarrior.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +16,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.dakiiii.hungerwarrior.FoodActViewModel;
+import com.dakiiii.hungerwarrior.R;
 import com.dakiiii.hungerwarrior.adapter.AllFoodsAdapter;
 import com.dakiiii.hungerwarrior.model.Cart;
 import com.dakiiii.hungerwarrior.model.Food;
