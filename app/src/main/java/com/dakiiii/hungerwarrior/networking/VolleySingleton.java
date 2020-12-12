@@ -1,5 +1,5 @@
 
-package com.dakiiii.hungerwarrior;
+package com.dakiiii.hungerwarrior.networking;
 
 import android.content.Context;
 

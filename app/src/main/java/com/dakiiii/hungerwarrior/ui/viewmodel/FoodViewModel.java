@@ -1,4 +1,4 @@
-package com.dakiiii.hungerwarrior;
+package com.dakiiii.hungerwarrior.ui.viewmodel;
 
 import android.app.Application;
 
@@ -25,5 +25,9 @@ public class FoodViewModel extends AndroidViewModel {
 
     public LiveData<List<Food>> getFoodListLiveData() {
         return eFoodListLiveData;
+    }
+
+    public void getFoodsFromServer() {
+        eFoodRepo.refreshFoodsDb();
     }
 }

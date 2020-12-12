@@ -11,9 +11,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.dakiiii.hungerwarrior.FoodActivity;
 import com.dakiiii.hungerwarrior.R;
 import com.dakiiii.hungerwarrior.model.Food;
+import com.dakiiii.hungerwarrior.ui.FoodActivity;
 
 import java.util.List;
 

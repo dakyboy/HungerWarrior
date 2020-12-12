@@ -6,24 +6,24 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "orders_table")
 public class Order {
+
     @PrimaryKey
     private int orderId;
 
-    private int customerId;
-    private String status;
-    private int vendorId;
 
-    private boolean isPaid;
-    private int price;
-    private String note;
+    private String customerId;
 
-    @Ignore
+
+    private String orderedOn;
+
     public Order() {
     }
 
-    public Order(int customerId) {
-        this.customerId = customerId;
+    @Ignore
+    public Order(int orderId) {
+        this.orderId = orderId;
     }
+
 
     public int getOrderId() {
         return orderId;
@@ -33,51 +33,19 @@ public class Order {
         this.orderId = orderId;
     }
 
-    public int getCustomerId() {
+    public String getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(int customerId) {
+    public void setCustomerId(String customerId) {
         this.customerId = customerId;
     }
 
-    public String getStatus() {
-        return status;
+    public String getOrderedOn() {
+        return orderedOn;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public int getVendorId() {
-        return vendorId;
-    }
-
-    public void setVendorId(int vendorId) {
-        this.vendorId = vendorId;
-    }
-
-    public boolean isPaid() {
-        return isPaid;
-    }
-
-    public void setPaid(boolean paid) {
-        isPaid = paid;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
+    public void setOrderedOn(String orderedOn) {
+        this.orderedOn = orderedOn;
     }
 }

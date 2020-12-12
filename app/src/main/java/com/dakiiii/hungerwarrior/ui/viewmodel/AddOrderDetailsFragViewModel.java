@@ -1,4 +1,4 @@
-package com.dakiiii.hungerwarrior;
+package com.dakiiii.hungerwarrior.ui.viewmodel;
 
 import android.app.Application;
 

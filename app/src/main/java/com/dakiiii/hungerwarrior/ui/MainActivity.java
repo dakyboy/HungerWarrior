@@ -1,4 +1,4 @@
-package com.dakiiii.hungerwarrior;
+package com.dakiiii.hungerwarrior.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,8 +14,10 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.dakiiii.hungerwarrior.R;
 import com.dakiiii.hungerwarrior.adapter.AllFoodsAdapter;
 import com.dakiiii.hungerwarrior.model.Food;
+import com.dakiiii.hungerwarrior.ui.viewmodel.FoodViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
                 eAllFoodsAdapter.setFoods(foods);
             }
         });
+
+        eFoodViewModel.getFoodsFromServer();
 
     }
 
