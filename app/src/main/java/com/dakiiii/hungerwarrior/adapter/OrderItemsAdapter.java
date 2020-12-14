@@ -31,8 +31,8 @@ public class OrderItemsAdapter extends RecyclerView.Adapter<OrderItemsAdapter.Or
         OrderItem orderItem = eOrderItems.get(position);
         holder.eTextViewFoodName.setText(orderItem.getFoodName());
         holder.eTextViewFoodQty.setText(String.valueOf(orderItem.getQuantity()));
-        holder.eTextViewOrderItemStatus.setText(orderItem.getStatus());
         holder.eTextViewOrderId.setText(String.valueOf(orderItem.getOrderId()));
+        holder.eTextViewOrderItemId.setText(Integer.toString(orderItem.getId()));
 
     }
 
@@ -52,15 +52,15 @@ public class OrderItemsAdapter extends RecyclerView.Adapter<OrderItemsAdapter.Or
     public class OrderItemsViewHolder extends RecyclerView.ViewHolder {
         TextView eTextViewFoodName;
         TextView eTextViewFoodQty;
-        TextView eTextViewOrderItemStatus;
         TextView eTextViewOrderId;
+        TextView eTextViewOrderItemId;
 
         public OrderItemsViewHolder(@NonNull View itemView) {
             super(itemView);
             eTextViewOrderId = itemView.findViewById(R.id.textView_orderItem_order_id);
             eTextViewFoodName = itemView.findViewById(R.id.textView_orderItem_name);
-            eTextViewOrderItemStatus = itemView.findViewById(R.id.textView_orderItem_status);
             eTextViewFoodQty = itemView.findViewById(R.id.textView_orderItem_quantity);
+            eTextViewOrderItemId = itemView.findViewById(R.id.textView_orderItem_OrderItemId);
 
         }
     }

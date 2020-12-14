@@ -66,16 +66,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView_orderItem_order_id" />
 
             <TextView
-                android:id="@+id/textView_orderItem_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView_orderItem_order_id" />
-
-            <TextView
+                android:labelFor="@id/textView_orderItem_OrderItemId"
                 android:id="@+id/textViewOrderIdLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -84,6 +75,25 @@
                 android:text="@string/order_id"
                 app:layout_constraintBaseline_toBaselineOf="@+id/textView_orderItem_order_id"
                 app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewOrderItemIdLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:text="@string/item_id"
+                app:layout_constraintStart_toEndOf="@+id/textView_orderItem_order_id"
+                app:layout_constraintTop_toTopOf="@+id/textView_orderItem_order_id" />
+
+            <TextView
+                android:id="@+id/textView_orderItem_OrderItemId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                app:layout_constraintBaseline_toBaselineOf="@+id/textViewOrderItemIdLabel"
+                app:layout_constraintStart_toEndOf="@+id/textViewOrderItemIdLabel" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 

@@ -22,7 +22,7 @@ public interface OrderItemDao {
     @Query("SELECT * FROM orderItems_table WHERE orderId = :orderId")
     LiveData<List<OrderItem>> getOrderItemByOrderId(int orderId);
 
-    @Query("SELECT * FROM orderItems_table WHERE status = :status")
+    @Query("SELECT * FROM orderItems_table WHERE status LIKE :status ORDER BY id DESC")
     LiveData<List<OrderItem>> getPendingOrderItems(String status);
 
 }
