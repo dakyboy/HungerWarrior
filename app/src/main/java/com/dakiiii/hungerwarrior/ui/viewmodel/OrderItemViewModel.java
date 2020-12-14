@@ -28,6 +28,14 @@ public class OrderItemViewModel extends AndroidViewModel {
         return eOrderItemRepo.getLiveDataOrderItemsByStatus("pending");
     }
 
+    public LiveData<List<OrderItem>> getLiveDataPreparingOrderItems() {
+        return eOrderItemRepo.getLiveDataOrderItemsByStatus("preparing");
+    }
+
+    public LiveData<List<OrderItem>> getLiveDataCancelledOrderItems() {
+        return eOrderItemRepo.getLiveDataOrderItemsByStatus("cancelled");
+    }
+
     public void getOrderItems() {
         eOrderItemRepo.getOrderItems();
     }

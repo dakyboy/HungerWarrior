@@ -32,7 +32,7 @@ public class OrderItemsAdapter extends RecyclerView.Adapter<OrderItemsAdapter.Or
         holder.eTextViewFoodName.setText(orderItem.getFoodName());
         holder.eTextViewFoodQty.setText(String.valueOf(orderItem.getQuantity()));
         holder.eTextViewOrderItemStatus.setText(orderItem.getStatus());
-        holder.eTextViewOrderId.setText(String.valueOf(orderItem.getId()));
+        holder.eTextViewOrderId.setText(String.valueOf(orderItem.getOrderId()));
 
     }
 
