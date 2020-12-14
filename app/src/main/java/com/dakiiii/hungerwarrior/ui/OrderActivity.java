@@ -39,7 +39,7 @@ public class OrderActivity extends AppCompatActivity {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.frag_container_orders, new OrderTrackActivity.AddOrderDetailsFragment())
+        transaction.add(R.id.frag_container_orders, new AddOrderDetailsFragment())
                 .addToBackStack(null)
                 .commit();
 
