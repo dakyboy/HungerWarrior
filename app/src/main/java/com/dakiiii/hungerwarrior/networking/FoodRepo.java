@@ -72,7 +72,13 @@ public class FoodRepo {
                         food.setFoodId(foodId);
                         food.setFoodDescription(food_desc);
                         food.setFoodVendor(food_vendor);
-                        new saveFoodsToDbAsyncTask(foodDao).execute(food);
+
+                        WarriorRoomDb.databaseWriterEXECUTOR_SERVICE.execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                foodDao.insertFood(food);
+                            }
+                        });
                     }
 
                 } catch (JSONException e) {
@@ -125,20 +131,6 @@ public class FoodRepo {
         }
     }
 
-    public static class saveFoodsToDbAsyncTask extends AsyncTask<Food, Void, Void> {
-        FoodDao eFoodDao;
-
-        public saveFoodsToDbAsyncTask(FoodDao foodDao) {
-            eFoodDao = foodDao;
-        }
-
-        @Override
-        protected Void doInBackground(Food... foods) {
-            eFoodDao.insertFood(foods[0]);
-            return null;
-        }
-
-    }
 
 }
 

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/order_item_pending"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_pending_24"
+        android:title="@string/pending" />
+    <item
+        android:id="@+id/order_item_preparing"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_more_time_24"
+        android:title="@string/preparing" />
+    <item
+        android:id="@+id/order_item_cancelled"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_cancel_24"
+        android:title="@string/cancelled" />
+    <item
+        android:id="@+id/order_item_completed"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_done_24"
+        android:title="@string/completed" />
+</menu>

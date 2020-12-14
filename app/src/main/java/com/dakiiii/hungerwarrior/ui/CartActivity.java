@@ -43,6 +43,8 @@ public class CartActivity extends AppCompatActivity {
         setSupportActionBar(toolbarCart);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle(R.string.cart);
+        actionBar.setDisplayShowTitleEnabled(true);
 
 //        recycler view
         eCartRecyclerView = findViewById(R.id.recyclerViewCart);
