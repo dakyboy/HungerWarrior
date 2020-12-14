@@ -12,7 +12,7 @@ import com.dakiiii.hungerwarrior.networking.OrderItemRepo;
 import java.util.List;
 
 public class OrderItemViewModel extends AndroidViewModel {
-    private OrderItemRepo eOrderItemRepo;
+    private final OrderItemRepo eOrderItemRepo;
     private LiveData<List<OrderItem>> eLiveDataOrderItems;
     private LiveData<List<OrderItem>> eLiveDataPendingOrderItems;
     public OrderItemViewModel(@NonNull Application application) {
@@ -28,9 +28,12 @@ public class OrderItemViewModel extends AndroidViewModel {
         return eOrderItemRepo.getLiveDataOrderItemsByStatus("pending");
     }
 
-    public void getPendingOrderItems(){
-        eOrderItemRepo.getPendingOrderItems();
+    public void getOrderItems() {
+        eOrderItemRepo.getOrderItems();
     }
 
 
+    public LiveData<List<OrderItem>> getLiveDataCompletedOrderItems() {
+        return eOrderItemRepo.getLiveDataOrderItemsByStatus("completed");
+    }
 }

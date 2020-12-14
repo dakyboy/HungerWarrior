@@ -36,7 +36,7 @@ public class NewOrdersFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        eOrderItemViewModel.getPendingOrderItems();
+        eOrderItemViewModel.getOrderItems();
     }
 
     @Override

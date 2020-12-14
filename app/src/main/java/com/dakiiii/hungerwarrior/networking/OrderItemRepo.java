@@ -22,10 +22,10 @@ import java.util.List;
 
 public class OrderItemRepo {
     public static final String ORDER_ITEM_STATUS_PENDING = "/pending";
-    private WarriorRoomDb eWarriorRoomDb;
-    private OrderItemDao eOrderItemDao;
-    private FirebaseUser eFirebaseUser;
-    private VolleySingleton eVolleySingleton;
+    private final WarriorRoomDb eWarriorRoomDb;
+    private final OrderItemDao eOrderItemDao;
+    private final FirebaseUser eFirebaseUser;
+    private final VolleySingleton eVolleySingleton;
     private LiveData<List<OrderItem>> eLiveDataPendingOrders;
     public static final String API_ORDER_ITEMS = "https://hungerwarrior.herokuapp.com/api/orderItemsByCustomer/";
 
@@ -38,7 +38,7 @@ public class OrderItemRepo {
     }
 
 
-    public void getPendingOrderItems() {
+    public void getOrderItems() {
         String url = API_ORDER_ITEMS + eFirebaseUser.getDisplayName();
         StringRequest stringRequest = new StringRequest(Request.Method.GET
                 , url
