@@ -36,4 +36,6 @@
     <string name="cancelled_orders">Cancelled Orders</string>
     <string name="completed_orders">Completed Orders</string>
     <string name="preparing_orders">Being Prepared</string>
+    <string name="x">x</string>
+    <string name="order_id">Order id:</string>
 </resources>

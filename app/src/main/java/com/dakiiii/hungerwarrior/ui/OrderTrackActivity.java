@@ -23,16 +23,21 @@ public class OrderTrackActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle(R.string.orders);
+        actionBar.setTitle(R.string.pending_orders);
         actionBar.setDisplayShowTitleEnabled(true);
 
         BottomNavigationView bottomNavView = findViewById(R.id.bottomNavView);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.frag_container_orders, new NewOrdersFragment())
+                .commit();
+
         bottomNavView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.order_item_pending:
-                        actionBar.setTitle(R.string.pending);
+                        actionBar.setTitle(R.string.pending_orders);
                         loadFrag(new NewOrdersFragment());
                         return true;
                     case R.id.order_item_preparing:
