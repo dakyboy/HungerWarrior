@@ -30,7 +30,10 @@ public class OrderActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar_orders);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(R.string.order);
+        actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
+
 
         eButtonPlaceOrder = findViewById(R.id.button_SendOrder);
 
@@ -47,8 +50,9 @@ public class OrderActivity extends AppCompatActivity {
 
     public void sendOrder(View view) {
         eButtonPlaceOrder.setEnabled(false);
-        eOrderViewModel.sendOrderRequest();
         Toast.makeText(this, "Order sent", Toast.LENGTH_SHORT).show();
+        eOrderViewModel.sendOrderRequest();
+
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
 

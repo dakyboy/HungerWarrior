@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(true);
 
 //        Recycler view for foods
         eRecyclerView = findViewById(R.id.recyclerView_AllFoods);
@@ -57,8 +58,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        eFoodViewModel.getFoodsFromServer();
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        eFoodViewModel.getFoodsFromServer();
     }
 
     @Override
@@ -74,6 +80,11 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_item_cart:
                 Intent intent = new Intent(this, CartActivity.class);
                 startActivity(intent);
+                return true;
+
+            case R.id.menu_item_orders:
+                Intent intent1 = new Intent(this, OrderTrackActivity.class);
+                startActivity(intent1);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

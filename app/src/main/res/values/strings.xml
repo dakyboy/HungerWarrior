@@ -26,4 +26,14 @@
     <string name="pick_up">Pick up</string>
     <string name="delivery">Delivery</string>
     <string name="button_cart_continue">Continue</string>
+    <string name="orders">My Orders</string>
+    <string name="pending">Pending</string>
+    <string name="cancelled">Cancelled</string>
+    <string name="completed">Completed</string>
+    <string name="preparing">Preparing</string>
+
+    <string name="pending_orders">New Orders</string>
+    <string name="cancelled_orders">Cancelled Orders</string>
+    <string name="completed_orders">Completed Orders</string>
+    <string name="preparing_orders">Being Prepared</string>
 </resources>

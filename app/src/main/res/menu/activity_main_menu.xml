@@ -9,4 +9,9 @@
         android:icon="@drawable/ic_baseline_shopping_cart_24"
         android:title="@string/cart"
         app:showAsAction="always|withText" />
+    <item
+        android:id="@+id/menu_item_orders"
+        android:icon="@drawable/ic_baseline_format_list_numbered_24"
+        android:title="@string/order"
+        app:showAsAction="always|withText" />
 </menu>

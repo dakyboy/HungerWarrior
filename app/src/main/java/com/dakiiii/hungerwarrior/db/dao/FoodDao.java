@@ -25,7 +25,7 @@ public interface FoodDao {
     @Query("DELETE FROM foods_table")
     void deleteAll();
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertFood(Food food);
 
 //    @Query("SELECT * FROM user WHERE age BETWEEN :minAge AND :maxAge")
