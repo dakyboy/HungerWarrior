@@ -2,8 +2,10 @@
     <string name="app_name">Hunger Warrior</string>
 
 
-    <string name="facebook_application_id" translatable="false">1915111812034075</string>
-    <string name="facebook_login_protocol_scheme" translatable="false">fb1915111812034075</string>
+    <string name="facebook_application_id">1915111812034075</string>
+    <string name="fb_login_protocol_scheme">fb1915111812034075</string>
+    <string name="facebook_client_token">42037062d911e5f68a5aff5c62b873f2</string>
+
     <string name="food_name">Food Name</string>
     <string name="food_price">Food Price</string>
     <string name="food_description">Food Description</string>
